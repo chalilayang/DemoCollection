@@ -1,0 +1,98 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.chalilayang.test">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/dribble"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"  >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.chalilayang.test.SprindicatorActivity">
+        </activity>
+        <activity
+            android:name="com.chalilayang.test.AboutActivity">
+        </activity>
+        <activity
+            android:name=".ExplosionActivity"
+            android:label="@string/explosion" >
+        </activity>
+        <activity
+            android:name=".WaveLoadingActivity"
+            android:label="@string/waveloading" >
+        </activity>
+        <activity
+            android:name=".StickyListActivity"
+            android:label="@string/sticky_list_view" >
+        </activity>
+        <activity
+            android:name=".LableTagActivity"
+            android:label="@string/lable_tag_sample" >
+        </activity>
+        <activity
+            android:name=".StickyListTestActivity"
+            android:label="@string/sticky_list_view_extra" >
+        </activity>
+        <activity android:name=".ExpandableListTestActivity" >
+        </activity>
+        <activity
+            android:name=".CustomViewActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:label="@string/title_activity_clip_path_test" >
+        </activity>
+        <activity
+            android:name="com.mobeta.android.demodslv.ArbItemSizeDSLV"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:label="@string/title_activity_clip_path_test" >
+        </activity>
+        <activity
+            android:name="com.mobeta.android.demodslv.BGHandle"
+            android:label="@string/title_activity_clip_path_test" >
+        </activity>
+        <activity
+            android:name="com.mobeta.android.demodslv.CursorDSLV"
+            android:label="@string/title_activity_clip_path_test" >
+        </activity>
+        <activity
+            android:name="com.mobeta.android.demodslv.MultipleChoiceListView"
+            android:label="@string/title_activity_clip_path_test" >
+        </activity>
+        <activity
+            android:name="com.mobeta.android.demodslv.Sections"
+            android:label="@string/title_activity_clip_path_test" >
+        </activity>
+        <activity
+            android:name="com.mobeta.android.demodslv.SingleChoiceListView"
+            android:label="@string/title_activity_clip_path_test" >
+        </activity>
+        <activity
+            android:name="com.mobeta.android.demodslv.TestBedDSLV"
+            android:label="@string/title_activity_clip_path_test" >
+        </activity>
+        <activity
+            android:name="com.mobeta.android.demodslv.WarpDSLV"
+            android:label="@string/title_activity_clip_path_test" >
+        </activity>
+        <activity
+            android:name="com.mobeta.android.demodslv.Launcher"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:label="@string/dslv_demo" >
+        </activity>
+        <activity
+            android:name="org.askerov.dynamicgrid.example.GridActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:label="@string/title_activity_dynamic_gridview" >
+        </activity>
+    </application>
+
+</manifest>

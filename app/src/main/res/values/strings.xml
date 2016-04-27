@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">特效集合</string>
+    <string name="explosion">icon爆炸</string>
+    <string name="waveloading">水波纹加载</string>
+    <string name="action_reset">Reset</string>
+    <string name="title_activity_main">特效菜单</string>
+    <string name="action_settings">Settings</string>
+    <string name="sticky_list_view">StickyList</string>
+    <string name="sticky_list_view_extra">StickyList2</string>
+    <string name="clip_path_demo">clipPathDemo</string>
+    <string name="dslv_demo">DSLVdemo</string>
+    <string name="sprindicator_demo">Sprindicator</string>
+    <string name="lable_tag_sample">标签demo</string>
+    <string name="dexposed">Hi, dexposed!</string>
+    <string name="hook_log">Hook system log</string>
+    <string name="hook_Choreographer">Hook Choreographer</string>
+    <string name="log_content">The log content</string>
+    <string name="run_patch_apk">Run patch apk</string>
+    <string name="tag_text">tag</string>
+    <string name="restore">Restore</string>
+    <string name="update">Update</string>
+    <string name="clear">Clear</string>
+    <string name="empty">Empty Adapter</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+    <string name="options">OPTIONS</string>
+    <string name="actions">ACTIONS</string>
+    <string name="restore_list">Restore list</string>
+    <string name="open_expandable_list">Open expandable list</string>
+    <string name="update_list">Update list</string>
+    <string name="clear_list">Clear list</string>
+    <string name="sticky_header">Sticky header</string>
+    <string name="fade_header">Fade header</string>
+    <string name="draw_behind_header">Draw behind header</string>
+    <string name="fast_scroll">Fast scroll</string>
+    <string name="title_activity_clip_path_test">CustomViewDemo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_dynamic_gridview">DynamicGridView</string>
+
+    <string-array name="activity_titles">
+        <item>Basic usage playground</item>
+        <item>Heteroheight</item>
+        <item>Warp</item>
+        <item>Background handle</item>
+        <item>Sections</item>
+        <item>CursorAdapter</item>
+        <item>Multiple-choice mode</item>
+        <item>Single-choice mode</item>
+    </string-array>
+    <string-array name="activity_descs">
+        <item>
+            Use the menu to adjust settings related to item
+            removal and drag initiation. These options are
+            provided by the DragSortController class.
+        </item>
+        <item>
+            Demonstrates (tests) drag-sorting when list items
+            have varying heights.
+        </item>
+        <item>
+            Demonstrates drag-scroll customization; long lists
+            need fast scrolling.
+        </item>
+        <item>
+            Simple DragSortController customization. In this example,
+            the drag handle is a background drawable; therefore, the
+            drag handle hit detection mechanism needs modification. 
+            Also, the floating View is given some flavor.
+        </item>
+        <item>
+            Demonstrates floating View control from a custom
+            FloatViewManager. Restrict item drags to list sections.
+        </item>
+        <item>
+            Demonstrates usage of the DragSortCursorAdapter class,
+            which abstracts drag-sorts with a remapping of Cursor
+            positions to ListView positions.
+        </item>
+        <item>
+            Uses Checkable list items in multiple-choice mode.
+        </item>
+        <item>
+            Uses Checkable list items to allow for selectable radio
+            buttons in single-choice mode.
+        </item>
+    </string-array>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="select_remove_mode">Remove modes</string>
+    <string name="select_drag_init_mode">Start-drag modes</string>
+    <string name="select_enables">Enable/Disable</string>
+    <string name="add_header">Add header</string>
+    <string name="add_footer">Add footer</string>
+    <string-array name="remove_mode_labels">
+      <item>Click remove</item>
+      <item>Fling remove</item>
+    </string-array>
+    <string-array name="drag_init_mode_labels">
+      <item>On down</item>
+      <item>On drag</item>
+      <item>On long press</item>
+    </string-array>
+    <string-array name="enables_labels">
+      <item>Enable drag</item>
+      <item>Enable sort</item>
+      <item>Enable remove</item>
+    </string-array>
+    <string-array name="jazz_artist_names">
+      <item>Brad Mehldau</item>
+      <item>Joshua Redman</item>
+      <item>Chick Corea</item>
+      <item>Kurt Rosenwinkel</item>
+      <item>Miles Davis</item>
+      <item>Wayne Shorter</item>
+      <item>Michael Brecker</item>
+      <item>Herbie Hancock</item>
+      <item>Joe Zawinul</item>
+      <item>Brian Blade</item>
+      <item>Jeff Ballard</item>
+      <item>Larry Grenadier</item>
+      <item>Keith Jarrett</item>
+      <item>McCoy Tyner</item>
+      <item>Stephon Harris</item>
+      <item>Mark Turner</item>
+    </string-array>
+    <string-array name="jazz_artist_albums">
+      <item>Largo, Art of the Trio 1-4, Highway Rider, Songs</item>
+      <item>Elastic, Momentum, Mood Swing, Back East</item>
+      <item>Light as a Feather, Akoustic Band, My Spanish Heart</item>
+      <item>Deep Song, Heartcore, Our Secret World, Reflections, The Remedy: Live at the Village Vanguard, The Enemies of Energy, The Next Step</item>
+    </string-array>
+
+    <string-array name="countries_extra">
+      <item>Afghanistan</item>
+      <item>Albania</item>
+      <item>Algeria</item>
+      <item>American Samoa</item>
+      <item>Andorra</item>
+      <item>Angola</item>
+      <item>Anguilla</item>
+      <item>Antigua and Barbuda</item>
+      <item>Argentina</item>
+      <item>Armenia</item>
+      <item>Australia</item>
+      <item>Austria</item>
+      <item>Azerbajan</item>
+      <item>Bahamas</item>
+      <item>Bahrain</item>
+      <item>Bangladesh</item>
+      <item>Barbados</item>
+      <item>Belarus</item>
+      <item>Belgium</item>
+      <item>Belize</item>
+      <item>Benin</item>
+      <item>Bermuda</item>
+      <item>Bhutan</item>
+      <item>Bolivia</item>
+      <item>Bosnia and Herzegovina</item>
+      <item>Botswana</item>
+      <item>Brazil</item>
+      <item>Brunei Darussalam</item>
+      <item>Bulgaria</item>
+      <item>Burkina Faso</item>
+      <item>Burundi</item>
+      <item>Cambodia</item>
+      <item>Cameroon</item>
+      <item>Canada</item>
+      <item>Chile</item>
+      <item>China</item>
+      <item>Colombia</item>
+      <item>Costa Rica</item>
+      <item>Cuba</item>
+      <item>Cyprus</item>
+      <item>Czech Republic</item>
+      <item>Democratic Republic Congo</item>
+      <item>Denmark</item>
+      <item>Djibouti</item>
+      <item>Dominican Republic</item>
+      <item>East Timor</item>
+      <item>Ecuador</item>
+      <item>Egypt</item>
+      <item>El Salvador</item>
+      <item>England</item>
+      <item>Eritrea</item>
+      <item>Estonia</item>
+      <item>Ethiopia</item>
+      <item>Faroe Islands</item>
+      <item>Fiji</item>
+      <item>Finland</item>
+      <item>France</item>
+      <item>French Polynesia</item>
+      <item>Gambia</item>
+      <item>Georgia (Sakartvelo)</item>
+      <item>Germany</item>
+      <item>Gabon</item>
+      <item>Ghana</item>
+      <item>Greece</item>
+      <item>Greenland - Kalaallit Nunaat</item>
+      <item>Grenada</item>
+      <item>Gouadeloupe</item>
+      <item>Guam</item>
+      <item>Guatemala</item>
+      <item>Guernsey</item>
+      <item>Guyana</item>
+      <item>Guyane</item>
+      <item>Haiti</item>
+      <item>Honduras</item>
+      <item>Hong Kong</item>
+      <item>Hrvatska (Croatia)</item>
+      <item>Hungary</item>
+      <item>Iceland</item>
+      <item>India</item>
+      <item>Indonesia</item>
+      <item>Iran</item>
+      <item>Iraq</item>
+      <item>Ireland</item>
+      <item>Israel</item>
+      <item>Italy</item>
+      <item>Jamaica</item>
+      <item>Japan</item>
+      <item>Jordan</item>
+      <item>Kazakhstan</item>
+      <item>Kenya</item>
+      <item>Korea Republic</item>
+      <item>Kosovo</item>
+      <item>Kurdistan</item>
+      <item>Kuwait</item>
+      <item>Kyrgyzstan</item>
+      <item>Laos</item>
+      <item>Latvia</item>
+      <item>Lebanon</item>
+      <item>Lesotho</item>
+      <item>Liberia</item>
+      <item>Libyan Arab Jamahiriya</item>
+      <item>Liechtenstein</item>
+      <item>Lithuania</item>
+      <item>Luxembourg</item>
+      <item>Macau</item>
+      <item>Macedonia</item>
+      <item>Malawi</item>
+      <item>Malaysia</item>
+      <item>Mali</item>
+      <item>Malta</item>
+      <item>Marshall Islands</item>
+      <item>Mauritania</item>
+      <item>Martinique</item>
+      <item>Mauritius</item>
+      <item>Mexico</item>
+      <item>Micronesia</item>
+      <item>Moldova</item>
+      <item>Monaco</item>
+      <item>Mongolia</item>
+      <item>Morocco</item>
+      <item>Mozambique</item>
+      <item>Namibia</item>
+      <item>Nepal</item>
+      <item>Netherlands</item>
+      <item>Netherlands Antilles</item>
+      <item>New Caledonia</item>
+      <item>New Zealand (Aotearoa)</item>
+      <item>Nicaragua</item>
+      <item>Nigeria</item>
+      <item>Niue</item>
+      <item>Norfolk Island</item>
+      <item>Northern Ireland</item>
+      <item>Northern Mariana Islands</item>
+      <item>Norway</item>
+      <item>Oman</item>
+      <item>Pakistan</item>
+      <item>Palau</item>
+      <item>Palestina</item>
+      <item>Panama</item>
+      <item>Papua New Guinea</item>
+      <item>Paraguay</item>
+      <item>Peru</item>
+      <item>Philippines</item>
+      <item>Portugal</item>
+      <item>Puerto Rico</item>
+      <item>Qatar</item>
+      <item>Reunion</item>
+      <item>Romania</item>
+      <item>Russian Federation (AsianPart)</item>
+      <item>Russian Federation (European Part)</item>
+      <item>Rwanda</item>
+      <item>Saint Kitts and Nevis</item>
+      <item>Saint Vincent and the Grenadines</item>
+      <item>Samoa (American Samoa)</item>
+      <item>Samoa (Western Samoa)</item>
+      <item>San Marino</item>
+      <item>Saudi Arabia</item>
+      <item>Scotland</item>
+      <item>Senegal</item>
+      <item>Seychelles</item>
+      <item>Sierra Leone</item>
+      <item>Singapore</item>
+      <item>Slovakia</item>
+      <item>Slovenia</item>
+      <item>Solomon Islands</item>
+      <item>Somalia</item>
+      <item>Somaliland</item>
+      <item>South Africa</item>
+      <item>Spain</item>
+      <item>Sri Lanka</item>
+      <item>Sudan</item>
+      <item>Suriname</item>
+      <item>Svalbard and Jan Mayen</item>
+      <item>Swaziland</item>
+      <item>Sweden</item>
+      <item>Switzerland</item>
+      <item>Syrian Arab Republic</item>
+      <item>Taiwan</item>
+      <item>Tanzania</item>
+      <item>Thailand</item>
+      <item>Tibet</item>
+      <item>Togo</item>
+      <item>Tonga</item>
+      <item>Trinidad and Tobago</item>
+      <item>Tunisia</item>
+      <item>Turkey</item>
+      <item>Turkmenistan</item>
+      <item>Turks and Caicos Islands</item>
+      <item>Uganda</item>
+      <item>Ukraine</item>
+      <item>United Arab Emirates</item>
+      <item>United Kingdom</item>
+      <item>Uruguay</item>
+      <item>USA</item>
+      <item>Uzbekistan</item>
+      <item>Vatican City State - Holy See</item>
+      <item>Venezuela</item>
+      <item>Viet Nam</item>
+      <item>Virgin Islands (British)</item>
+      <item>Virgin Islands (U.S.)</item>
+      <item>Wales</item>
+      <item>Yemen</item>
+      <item>Yugoslavia</item>
+      <item>Zambia</item>
+      <item>Zimbabwe</item>
+    </string-array>
+    
+    <string name="action_about">About</string>
+
+        <string name="license">
+        Copyright 2015 chenupt
+\n\n
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+\n\n
+    http://www.apache.org/licenses/LICENSE-2.0
+\n\n
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+    </string>
+</resources>

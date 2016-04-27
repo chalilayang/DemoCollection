@@ -1,0 +1,30 @@
+<resources>
+    
+    <dimen name="action_bar_container_height">60dp</dimen>
+    
+    <dimen name="main_activity_list_divider_height">10dp</dimen>
+    
+    <!-- ClipPathTestActivity -->
+    <dimen name="round_shape_radius">50sp</dimen>
+    <dimen name="fab_size">70dp</dimen>
+    <dimen name="start_z">2dp</dimen>
+    <dimen name="end_z">5dp</dimen>
+    
+    
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="item_height">67dp</dimen>
+    <dimen name="section_div_height">20dp</dimen>
+    <dimen name="dgv_overlap_if_switch_straight_line">16dp</dimen>
+    
+    <dimen name="mm_up_arrow_margin">-16dp</dimen>
+    
+    <dimen name="general_big_text_size">30sp</dimen>
+    <dimen name="general_middle_text_size">24sp</dimen>
+    <dimen name="general_small_text_size">18sp</dimen>
+    
+    <dimen name="si_default_text_size">18sp</dimen>
+    <dimen name="si_default_radius_max">24dp</dimen>
+    <dimen name="si_default_radius_min">2dp</dimen>
+</resources>
