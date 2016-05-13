@@ -1,5 +1,5 @@
 <resources>
-    
+
     <color name="dsb_progress_color">#ff009688</color>
     <color name="dsb_track_color">#ff939393</color>
     <color name="dsb_disabled_color">#66939393</color>
@@ -7,7 +7,8 @@
     <color name="dsb_ripple_color_focused">#99999999</color>
 
     <style name="Widget.DiscreteSeekBar" parent="android:Widget">
-        <item name="dsb_indicatorTextAppearance">@style/Widget.DiscreteIndicatorTextAppearance</item>
+        <item name="dsb_indicatorTextAppearance">@style/Widget.DiscreteIndicatorTextAppearance
+        </item>
         <item name="dsb_progressColor">@color/dsb_progress_color_list</item>
         <item name="dsb_trackColor">@color/dsb_track_color_list</item>
         <item name="dsb_rippleColor">@color/dsb_ripple_color_list</item>
@@ -20,7 +21,7 @@
         <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
         <item name="android:padding">6dp</item>
     </style>
-    
+
     <declare-styleable name="TagCloudLayout">
         <attr name="lineSpacing" format="dimension" />
         <attr name="tagSpacing" format="dimension" />
@@ -28,34 +29,34 @@
         <attr name="isFixed" format="boolean" />
         <attr name="columnSize" format="integer" />
     </declare-styleable>
-    
+
     <style name="MenuSectionHeader">
         <item name="android:padding">5dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/menu_section_header</item>
         <item name="android:textSize">14sp</item>
     </style>
-    
+
     <style name="AppCompatTitle">
         <item name="android:textSize">@dimen/general_middle_text_size</item>
         <item name="android:textColor">@color/white</item>
     </style>
-    
+
     <declare-styleable name="MaterialMenuView">
-        <attr name="mm_color" format="color"/>
-        <attr name="mm_visible" format="boolean"/>
-        <attr name="mm_scale" format="integer"/>
-        <attr name="mm_transformDuration" format="integer"/>
-        <attr name="mm_strokeWidth" format="integer"/>
-        <attr name="mm_rtlEnabled" format="boolean"/>
+        <attr name="mm_color" format="color" />
+        <attr name="mm_visible" format="boolean" />
+        <attr name="mm_scale" format="integer" />
+        <attr name="mm_transformDuration" format="integer" />
+        <attr name="mm_strokeWidth" format="integer" />
+        <attr name="mm_rtlEnabled" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="FAB">
         <!-- Background color -->
-        <attr name="bg_color" format="color|reference"/>
-        <attr name="bg_color_pressed" format="color|reference"/>
+        <attr name="bg_color" format="color|reference" />
+        <attr name="bg_color_pressed" format="color|reference" />
     </declare-styleable>
-    
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- colorPrimary is used for the default action bar background -->
@@ -63,4 +64,8 @@
         <!-- colorPrimaryDark is used for the status bar -->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

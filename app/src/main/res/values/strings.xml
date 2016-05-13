@@ -94,252 +94,252 @@
     <string name="add_header">Add header</string>
     <string name="add_footer">Add footer</string>
     <string-array name="remove_mode_labels">
-      <item>Click remove</item>
-      <item>Fling remove</item>
+        <item>Click remove</item>
+        <item>Fling remove</item>
     </string-array>
     <string-array name="drag_init_mode_labels">
-      <item>On down</item>
-      <item>On drag</item>
-      <item>On long press</item>
+        <item>On down</item>
+        <item>On drag</item>
+        <item>On long press</item>
     </string-array>
     <string-array name="enables_labels">
-      <item>Enable drag</item>
-      <item>Enable sort</item>
-      <item>Enable remove</item>
+        <item>Enable drag</item>
+        <item>Enable sort</item>
+        <item>Enable remove</item>
     </string-array>
     <string-array name="jazz_artist_names">
-      <item>Brad Mehldau</item>
-      <item>Joshua Redman</item>
-      <item>Chick Corea</item>
-      <item>Kurt Rosenwinkel</item>
-      <item>Miles Davis</item>
-      <item>Wayne Shorter</item>
-      <item>Michael Brecker</item>
-      <item>Herbie Hancock</item>
-      <item>Joe Zawinul</item>
-      <item>Brian Blade</item>
-      <item>Jeff Ballard</item>
-      <item>Larry Grenadier</item>
-      <item>Keith Jarrett</item>
-      <item>McCoy Tyner</item>
-      <item>Stephon Harris</item>
-      <item>Mark Turner</item>
+        <item>Brad Mehldau</item>
+        <item>Joshua Redman</item>
+        <item>Chick Corea</item>
+        <item>Kurt Rosenwinkel</item>
+        <item>Miles Davis</item>
+        <item>Wayne Shorter</item>
+        <item>Michael Brecker</item>
+        <item>Herbie Hancock</item>
+        <item>Joe Zawinul</item>
+        <item>Brian Blade</item>
+        <item>Jeff Ballard</item>
+        <item>Larry Grenadier</item>
+        <item>Keith Jarrett</item>
+        <item>McCoy Tyner</item>
+        <item>Stephon Harris</item>
+        <item>Mark Turner</item>
     </string-array>
     <string-array name="jazz_artist_albums">
-      <item>Largo, Art of the Trio 1-4, Highway Rider, Songs</item>
-      <item>Elastic, Momentum, Mood Swing, Back East</item>
-      <item>Light as a Feather, Akoustic Band, My Spanish Heart</item>
-      <item>Deep Song, Heartcore, Our Secret World, Reflections, The Remedy: Live at the Village Vanguard, The Enemies of Energy, The Next Step</item>
+        <item>Largo, Art of the Trio 1-4, Highway Rider, Songs</item>
+        <item>Elastic, Momentum, Mood Swing, Back East</item>
+        <item>Light as a Feather, Akoustic Band, My Spanish Heart</item>
+        <item>Deep Song, Heartcore, Our Secret World, Reflections, The Remedy: Live at the Village Vanguard, The Enemies of Energy, The Next Step</item>
     </string-array>
 
     <string-array name="countries_extra">
-      <item>Afghanistan</item>
-      <item>Albania</item>
-      <item>Algeria</item>
-      <item>American Samoa</item>
-      <item>Andorra</item>
-      <item>Angola</item>
-      <item>Anguilla</item>
-      <item>Antigua and Barbuda</item>
-      <item>Argentina</item>
-      <item>Armenia</item>
-      <item>Australia</item>
-      <item>Austria</item>
-      <item>Azerbajan</item>
-      <item>Bahamas</item>
-      <item>Bahrain</item>
-      <item>Bangladesh</item>
-      <item>Barbados</item>
-      <item>Belarus</item>
-      <item>Belgium</item>
-      <item>Belize</item>
-      <item>Benin</item>
-      <item>Bermuda</item>
-      <item>Bhutan</item>
-      <item>Bolivia</item>
-      <item>Bosnia and Herzegovina</item>
-      <item>Botswana</item>
-      <item>Brazil</item>
-      <item>Brunei Darussalam</item>
-      <item>Bulgaria</item>
-      <item>Burkina Faso</item>
-      <item>Burundi</item>
-      <item>Cambodia</item>
-      <item>Cameroon</item>
-      <item>Canada</item>
-      <item>Chile</item>
-      <item>China</item>
-      <item>Colombia</item>
-      <item>Costa Rica</item>
-      <item>Cuba</item>
-      <item>Cyprus</item>
-      <item>Czech Republic</item>
-      <item>Democratic Republic Congo</item>
-      <item>Denmark</item>
-      <item>Djibouti</item>
-      <item>Dominican Republic</item>
-      <item>East Timor</item>
-      <item>Ecuador</item>
-      <item>Egypt</item>
-      <item>El Salvador</item>
-      <item>England</item>
-      <item>Eritrea</item>
-      <item>Estonia</item>
-      <item>Ethiopia</item>
-      <item>Faroe Islands</item>
-      <item>Fiji</item>
-      <item>Finland</item>
-      <item>France</item>
-      <item>French Polynesia</item>
-      <item>Gambia</item>
-      <item>Georgia (Sakartvelo)</item>
-      <item>Germany</item>
-      <item>Gabon</item>
-      <item>Ghana</item>
-      <item>Greece</item>
-      <item>Greenland - Kalaallit Nunaat</item>
-      <item>Grenada</item>
-      <item>Gouadeloupe</item>
-      <item>Guam</item>
-      <item>Guatemala</item>
-      <item>Guernsey</item>
-      <item>Guyana</item>
-      <item>Guyane</item>
-      <item>Haiti</item>
-      <item>Honduras</item>
-      <item>Hong Kong</item>
-      <item>Hrvatska (Croatia)</item>
-      <item>Hungary</item>
-      <item>Iceland</item>
-      <item>India</item>
-      <item>Indonesia</item>
-      <item>Iran</item>
-      <item>Iraq</item>
-      <item>Ireland</item>
-      <item>Israel</item>
-      <item>Italy</item>
-      <item>Jamaica</item>
-      <item>Japan</item>
-      <item>Jordan</item>
-      <item>Kazakhstan</item>
-      <item>Kenya</item>
-      <item>Korea Republic</item>
-      <item>Kosovo</item>
-      <item>Kurdistan</item>
-      <item>Kuwait</item>
-      <item>Kyrgyzstan</item>
-      <item>Laos</item>
-      <item>Latvia</item>
-      <item>Lebanon</item>
-      <item>Lesotho</item>
-      <item>Liberia</item>
-      <item>Libyan Arab Jamahiriya</item>
-      <item>Liechtenstein</item>
-      <item>Lithuania</item>
-      <item>Luxembourg</item>
-      <item>Macau</item>
-      <item>Macedonia</item>
-      <item>Malawi</item>
-      <item>Malaysia</item>
-      <item>Mali</item>
-      <item>Malta</item>
-      <item>Marshall Islands</item>
-      <item>Mauritania</item>
-      <item>Martinique</item>
-      <item>Mauritius</item>
-      <item>Mexico</item>
-      <item>Micronesia</item>
-      <item>Moldova</item>
-      <item>Monaco</item>
-      <item>Mongolia</item>
-      <item>Morocco</item>
-      <item>Mozambique</item>
-      <item>Namibia</item>
-      <item>Nepal</item>
-      <item>Netherlands</item>
-      <item>Netherlands Antilles</item>
-      <item>New Caledonia</item>
-      <item>New Zealand (Aotearoa)</item>
-      <item>Nicaragua</item>
-      <item>Nigeria</item>
-      <item>Niue</item>
-      <item>Norfolk Island</item>
-      <item>Northern Ireland</item>
-      <item>Northern Mariana Islands</item>
-      <item>Norway</item>
-      <item>Oman</item>
-      <item>Pakistan</item>
-      <item>Palau</item>
-      <item>Palestina</item>
-      <item>Panama</item>
-      <item>Papua New Guinea</item>
-      <item>Paraguay</item>
-      <item>Peru</item>
-      <item>Philippines</item>
-      <item>Portugal</item>
-      <item>Puerto Rico</item>
-      <item>Qatar</item>
-      <item>Reunion</item>
-      <item>Romania</item>
-      <item>Russian Federation (AsianPart)</item>
-      <item>Russian Federation (European Part)</item>
-      <item>Rwanda</item>
-      <item>Saint Kitts and Nevis</item>
-      <item>Saint Vincent and the Grenadines</item>
-      <item>Samoa (American Samoa)</item>
-      <item>Samoa (Western Samoa)</item>
-      <item>San Marino</item>
-      <item>Saudi Arabia</item>
-      <item>Scotland</item>
-      <item>Senegal</item>
-      <item>Seychelles</item>
-      <item>Sierra Leone</item>
-      <item>Singapore</item>
-      <item>Slovakia</item>
-      <item>Slovenia</item>
-      <item>Solomon Islands</item>
-      <item>Somalia</item>
-      <item>Somaliland</item>
-      <item>South Africa</item>
-      <item>Spain</item>
-      <item>Sri Lanka</item>
-      <item>Sudan</item>
-      <item>Suriname</item>
-      <item>Svalbard and Jan Mayen</item>
-      <item>Swaziland</item>
-      <item>Sweden</item>
-      <item>Switzerland</item>
-      <item>Syrian Arab Republic</item>
-      <item>Taiwan</item>
-      <item>Tanzania</item>
-      <item>Thailand</item>
-      <item>Tibet</item>
-      <item>Togo</item>
-      <item>Tonga</item>
-      <item>Trinidad and Tobago</item>
-      <item>Tunisia</item>
-      <item>Turkey</item>
-      <item>Turkmenistan</item>
-      <item>Turks and Caicos Islands</item>
-      <item>Uganda</item>
-      <item>Ukraine</item>
-      <item>United Arab Emirates</item>
-      <item>United Kingdom</item>
-      <item>Uruguay</item>
-      <item>USA</item>
-      <item>Uzbekistan</item>
-      <item>Vatican City State - Holy See</item>
-      <item>Venezuela</item>
-      <item>Viet Nam</item>
-      <item>Virgin Islands (British)</item>
-      <item>Virgin Islands (U.S.)</item>
-      <item>Wales</item>
-      <item>Yemen</item>
-      <item>Yugoslavia</item>
-      <item>Zambia</item>
-      <item>Zimbabwe</item>
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>American Samoa</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Anguilla</item>
+        <item>Antigua and Barbuda</item>
+        <item>Argentina</item>
+        <item>Armenia</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Azerbajan</item>
+        <item>Bahamas</item>
+        <item>Bahrain</item>
+        <item>Bangladesh</item>
+        <item>Barbados</item>
+        <item>Belarus</item>
+        <item>Belgium</item>
+        <item>Belize</item>
+        <item>Benin</item>
+        <item>Bermuda</item>
+        <item>Bhutan</item>
+        <item>Bolivia</item>
+        <item>Bosnia and Herzegovina</item>
+        <item>Botswana</item>
+        <item>Brazil</item>
+        <item>Brunei Darussalam</item>
+        <item>Bulgaria</item>
+        <item>Burkina Faso</item>
+        <item>Burundi</item>
+        <item>Cambodia</item>
+        <item>Cameroon</item>
+        <item>Canada</item>
+        <item>Chile</item>
+        <item>China</item>
+        <item>Colombia</item>
+        <item>Costa Rica</item>
+        <item>Cuba</item>
+        <item>Cyprus</item>
+        <item>Czech Republic</item>
+        <item>Democratic Republic Congo</item>
+        <item>Denmark</item>
+        <item>Djibouti</item>
+        <item>Dominican Republic</item>
+        <item>East Timor</item>
+        <item>Ecuador</item>
+        <item>Egypt</item>
+        <item>El Salvador</item>
+        <item>England</item>
+        <item>Eritrea</item>
+        <item>Estonia</item>
+        <item>Ethiopia</item>
+        <item>Faroe Islands</item>
+        <item>Fiji</item>
+        <item>Finland</item>
+        <item>France</item>
+        <item>French Polynesia</item>
+        <item>Gambia</item>
+        <item>Georgia (Sakartvelo)</item>
+        <item>Germany</item>
+        <item>Gabon</item>
+        <item>Ghana</item>
+        <item>Greece</item>
+        <item>Greenland - Kalaallit Nunaat</item>
+        <item>Grenada</item>
+        <item>Gouadeloupe</item>
+        <item>Guam</item>
+        <item>Guatemala</item>
+        <item>Guernsey</item>
+        <item>Guyana</item>
+        <item>Guyane</item>
+        <item>Haiti</item>
+        <item>Honduras</item>
+        <item>Hong Kong</item>
+        <item>Hrvatska (Croatia)</item>
+        <item>Hungary</item>
+        <item>Iceland</item>
+        <item>India</item>
+        <item>Indonesia</item>
+        <item>Iran</item>
+        <item>Iraq</item>
+        <item>Ireland</item>
+        <item>Israel</item>
+        <item>Italy</item>
+        <item>Jamaica</item>
+        <item>Japan</item>
+        <item>Jordan</item>
+        <item>Kazakhstan</item>
+        <item>Kenya</item>
+        <item>Korea Republic</item>
+        <item>Kosovo</item>
+        <item>Kurdistan</item>
+        <item>Kuwait</item>
+        <item>Kyrgyzstan</item>
+        <item>Laos</item>
+        <item>Latvia</item>
+        <item>Lebanon</item>
+        <item>Lesotho</item>
+        <item>Liberia</item>
+        <item>Libyan Arab Jamahiriya</item>
+        <item>Liechtenstein</item>
+        <item>Lithuania</item>
+        <item>Luxembourg</item>
+        <item>Macau</item>
+        <item>Macedonia</item>
+        <item>Malawi</item>
+        <item>Malaysia</item>
+        <item>Mali</item>
+        <item>Malta</item>
+        <item>Marshall Islands</item>
+        <item>Mauritania</item>
+        <item>Martinique</item>
+        <item>Mauritius</item>
+        <item>Mexico</item>
+        <item>Micronesia</item>
+        <item>Moldova</item>
+        <item>Monaco</item>
+        <item>Mongolia</item>
+        <item>Morocco</item>
+        <item>Mozambique</item>
+        <item>Namibia</item>
+        <item>Nepal</item>
+        <item>Netherlands</item>
+        <item>Netherlands Antilles</item>
+        <item>New Caledonia</item>
+        <item>New Zealand (Aotearoa)</item>
+        <item>Nicaragua</item>
+        <item>Nigeria</item>
+        <item>Niue</item>
+        <item>Norfolk Island</item>
+        <item>Northern Ireland</item>
+        <item>Northern Mariana Islands</item>
+        <item>Norway</item>
+        <item>Oman</item>
+        <item>Pakistan</item>
+        <item>Palau</item>
+        <item>Palestina</item>
+        <item>Panama</item>
+        <item>Papua New Guinea</item>
+        <item>Paraguay</item>
+        <item>Peru</item>
+        <item>Philippines</item>
+        <item>Portugal</item>
+        <item>Puerto Rico</item>
+        <item>Qatar</item>
+        <item>Reunion</item>
+        <item>Romania</item>
+        <item>Russian Federation (AsianPart)</item>
+        <item>Russian Federation (European Part)</item>
+        <item>Rwanda</item>
+        <item>Saint Kitts and Nevis</item>
+        <item>Saint Vincent and the Grenadines</item>
+        <item>Samoa (American Samoa)</item>
+        <item>Samoa (Western Samoa)</item>
+        <item>San Marino</item>
+        <item>Saudi Arabia</item>
+        <item>Scotland</item>
+        <item>Senegal</item>
+        <item>Seychelles</item>
+        <item>Sierra Leone</item>
+        <item>Singapore</item>
+        <item>Slovakia</item>
+        <item>Slovenia</item>
+        <item>Solomon Islands</item>
+        <item>Somalia</item>
+        <item>Somaliland</item>
+        <item>South Africa</item>
+        <item>Spain</item>
+        <item>Sri Lanka</item>
+        <item>Sudan</item>
+        <item>Suriname</item>
+        <item>Svalbard and Jan Mayen</item>
+        <item>Swaziland</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
+        <item>Syrian Arab Republic</item>
+        <item>Taiwan</item>
+        <item>Tanzania</item>
+        <item>Thailand</item>
+        <item>Tibet</item>
+        <item>Togo</item>
+        <item>Tonga</item>
+        <item>Trinidad and Tobago</item>
+        <item>Tunisia</item>
+        <item>Turkey</item>
+        <item>Turkmenistan</item>
+        <item>Turks and Caicos Islands</item>
+        <item>Uganda</item>
+        <item>Ukraine</item>
+        <item>United Arab Emirates</item>
+        <item>United Kingdom</item>
+        <item>Uruguay</item>
+        <item>USA</item>
+        <item>Uzbekistan</item>
+        <item>Vatican City State - Holy See</item>
+        <item>Venezuela</item>
+        <item>Viet Nam</item>
+        <item>Virgin Islands (British)</item>
+        <item>Virgin Islands (U.S.)</item>
+        <item>Wales</item>
+        <item>Yemen</item>
+        <item>Yugoslavia</item>
+        <item>Zambia</item>
+        <item>Zimbabwe</item>
     </string-array>
-    
+
     <string name="action_about">About</string>
 
         <string name="license">
@@ -356,5 +356,95 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+    </string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="large_text">
+        "Material is the metaphor.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
     </string>
 </resources>

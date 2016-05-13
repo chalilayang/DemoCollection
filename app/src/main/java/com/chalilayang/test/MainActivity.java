@@ -139,6 +139,11 @@ public class MainActivity extends Activity implements OnItemClickListener {
         map.put(LIST_KEY_NAME, getString(R.string.sprindicator_demo));
         list.add(map);
 
+        map = new HashMap<String, Object>(1);
+        // map.put("img", R.drawable.e002);
+        map.put(LIST_KEY_ICON, R.drawable.facebook);
+        map.put(LIST_KEY_NAME, getString(R.string.title_activity_scrolling));
+        list.add(map);
 
         return list;
     }
@@ -174,6 +179,9 @@ public class MainActivity extends Activity implements OnItemClickListener {
                 break;
             case 8:
                 intent = new Intent(this, SprindicatorActivity.class);
+                break;
+            case 9:
+                intent = new Intent(this, ScrollingActivity.class);
                 break;
             default:
                 break;

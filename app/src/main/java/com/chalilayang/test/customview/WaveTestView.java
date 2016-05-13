@@ -32,8 +32,8 @@ public class WaveTestView extends View {
     private int bitmapWidth = 90;
     private int bitmapHeight = 20;
 
-    private int mMeshWidth = 30;
-    private int mMeshHeight = 10;
+    private int mMeshWidth = 190;
+    private int mMeshHeight = 90;
 
     private float[] mVerts;
     private float[] mOrigin;
@@ -56,9 +56,10 @@ public class WaveTestView extends View {
     private boolean isAnimationing = false;
     private float mKey = 0.0F;
     private void init() {
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.wallpaper);
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.page1);
         bitmapWidth = bitmap.getWidth();
         bitmapHeight = bitmap.getHeight();
+        this.mMeshHeight = this.mMeshWidth * bitmapHeight / bitmapWidth;
         final int WIDTH = this.mMeshWidth;
         final int HEIGHT = this.mMeshHeight;
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -70,11 +71,11 @@ public class WaveTestView extends View {
             for (int indexX = 0; indexX <= WIDTH; indexX ++) {
                 float fx = bitmapWidth * indexX / WIDTH;
                 this.mOrigin[index * 2 + 0] = this.mVerts[index * 2 + 0] = fx;
-                this.mOrigin[index * 2 + 1] = 2*(this.mVerts[index * 2 + 1] = fy) + 100;
+                this.mOrigin[index * 2 + 1] = this.mVerts[index * 2 + 1] = fy;
                 index ++;
             }
         }
-        flagWave();
+//        RialWave();
         mHandler = new Handler();
     }
 
@@ -92,11 +93,11 @@ public class WaveTestView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
-                if (isAnimationing) {
-                    stopAnimate();
-                } else {
-                    startAnimate();
-                }
+//                if (isAnimationing) {
+//                    stopAnimate();
+//                } else {
+//                    startAnimate();
+//                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 break;
@@ -152,6 +153,38 @@ public class WaveTestView extends View {
                 double offSet = Math.sin((float)(indexX * 1.0 / WIDTH * 3 * Math.PI + Math.PI * mKey));
                 this.mVerts[index * 2 + 0] += 0;
                 this.mVerts[index * 2 + 1] = (float) (this.mOrigin[index * 2 + 1] + 30 * offSet);
+                index ++;
+            }
+        }
+    }
+
+    private void RialWave() {
+        final int WIDTH = this.mMeshWidth;
+        final int HEIGHT = this.mMeshHeight;
+        final int centerX = (int)(WIDTH * 0.5+0.5);
+        final int centerY = (int)(HEIGHT * 0.5+0.5);
+        final float DELTA = 30.0F;
+        double mDelta = 0;
+        int index = 0;
+        for(int indexY = 0; indexY <= HEIGHT; indexY ++) {
+            for (int indexX = 0; indexX <= WIDTH; indexX ++) {
+//                double distance
+//                        = Math.sqrt(
+//                        Math.pow((indexX - centerX), 2) + Math.pow((indexY - centerY), 2)
+//                );
+//                double angle = Math.atan((indexY - centerY) * 1.0F /(indexX - centerX));
+//                if (distance >= DELTA) {
+//                    mDelta = DELTA * Math.exp(-Math.max(0, distance - DELTA));
+//                } else {
+//                    mDelta = 0;
+//                }
+                if (mDelta > 0) {
+//                    this.mVerts[index * 2 + 0] = this.mOrigin[index * 2 + 0] + (float) (mDelta * Math.cos(angle));
+//                    this.mVerts[index * 2 + 1] = this.mOrigin[index * 2 + 1] + (float) (mDelta * Math.sin(angle));
+                } else {
+                    this.mVerts[index * 2 + 0] = this.mOrigin[index * 2 + 0];
+                    this.mVerts[index * 2 + 1] = this.mOrigin[index * 2 + 1];
+                }
                 index ++;
             }
         }
