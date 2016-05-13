@@ -8,6 +8,8 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -17,10 +19,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import org.askerov.dynamicgrid.example.GridActivity;
 
@@ -28,13 +26,10 @@ import com.balysv.materialmenu.MaterialMenuView;
 import com.balysv.materialmenu.MaterialMenuDrawable.IconState;
 import com.mobeta.android.demodslv.Launcher;
 
-public class MainActivity extends Activity implements OnItemClickListener {
 
-    public static final String LIST_KEY_ICON = "icon";
-    public static final String LIST_KEY_NAME = "name";
-
-    public ListView mListView;
-    private SimpleAdapter mListAdapter;
+public class MainActivity extends Activity implements ActivitiesAdapter.onItemClickListener {
+    public RecyclerView mRecyclerView;
+    private ActivitiesAdapter mActivitiesAdapter;
     public DisplayMetrics mDisplayMetrics;
     private MaterialMenuView mMaterialMenuView;
     @Override
@@ -44,17 +39,17 @@ public class MainActivity extends Activity implements OnItemClickListener {
         init();
         initMetrics();
     }
-    
+
     private void initMetrics() {
         mDisplayMetrics = getApplicationContext().getResources().getDisplayMetrics();
-        Log.e("displayMetrics", mDisplayMetrics.toString());
+        Log.i("displayMetrics", mDisplayMetrics.toString());
     }
 
     private void init() {
         if (mMaterialMenuView == null) {
             mMaterialMenuView = (MaterialMenuView) findViewById(R.id.action_bar_menu);
             mMaterialMenuView.setOnClickListener(new OnClickListener() {
-                
+
                 @Override
                 public void onClick(View v) {
                     IconState state = mMaterialMenuView.getState();
@@ -68,88 +63,67 @@ public class MainActivity extends Activity implements OnItemClickListener {
                         default:
                             break;
                     }
-                    
+
                 }
             });
         }
-        if (mListView == null) {
-            mListView = (ListView) findViewById(R.id.activity_list_view);
-            mListAdapter = new SimpleAdapter(getApplicationContext(), getData(), R.layout.list_item_layout,
-                    new String[] {LIST_KEY_ICON, LIST_KEY_NAME},
-                    new int[] {R.id.myDataImage, R.id.myDataString});
-            mListView.setLayoutAnimation(getAnimationController());
-            mListView.setAdapter(mListAdapter);
-            mListView.setOnItemClickListener(this);
+        if (mActivitiesAdapter == null) {
+            mActivitiesAdapter = new ActivitiesAdapter(getApplicationContext());
+            mActivitiesAdapter.setmDataList(getData());
         }
+        if (mRecyclerView == null) {
+            mRecyclerView = (RecyclerView) findViewById(R.id.activity_main_recyclerview);
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setLayoutAnimation(getAnimationController());
+        }
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mActivitiesAdapter);
+        mActivitiesAdapter.setOnItemClickListener(this);
     }
 
-    private List<Map<String, Object>> getData() {
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        Map<String, Object> map = new HashMap<String, Object>(1);
-        // map.put("img", R.drawable.e001);
-        map.put(LIST_KEY_ICON, R.drawable.behance);
-        map.put(LIST_KEY_NAME, getString(R.string.explosion));
-        list.add(map);
+    private List<ActivitiesAdapter.Data> getData() {
+        List<ActivitiesAdapter.Data> mList = new ArrayList<ActivitiesAdapter.Data>(10);
+        mList.add(new ActivitiesAdapter.Data(R.drawable.behance, getString(R.string.explosion)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.youtube, getString(R.string.waveloading)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.facebook, getString(R.string.sticky_list_view)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.dribble, getString(R.string.lable_tag_sample)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.dropbox, getString(R.string.sticky_list_view_extra)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.instagram, getString(R.string.clip_path_demo)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.linkdin, getString(R.string.title_activity_dynamic_gridview)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.twitter, getString(R.string.dslv_demo)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.pintrest, getString(R.string.sprindicator_demo)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.behance, getString(R.string.title_activity_scrolling)));
+        return mList;
+    }
 
-        map = new HashMap<String, Object>(1);
-        // map.put("img", R.drawable.e002);
-        map.put(LIST_KEY_ICON, R.drawable.youtube);
-        map.put(LIST_KEY_NAME, getString(R.string.waveloading));
-        list.add(map);
+    /**
+     * Layout动画
+     *
+     * @return
+     */
+    protected LayoutAnimationController getAnimationController() {
+        int duration=400;
+        AnimationSet set = new AnimationSet(true);
 
-        map = new HashMap<String, Object>(1);
-        // map.put("img", R.drawable.e002);
-        map.put(LIST_KEY_ICON, R.drawable.facebook);
-        map.put(LIST_KEY_NAME, getString(R.string.sticky_list_view));
-        list.add(map);
-        
-        map = new HashMap<String, Object>(1);
-        // map.put("img", R.drawable.e002);
-        map.put(LIST_KEY_ICON, R.drawable.dropbox);
-        map.put(LIST_KEY_NAME, getString(R.string.lable_tag_sample));
-        list.add(map);
-        
-        map = new HashMap<String, Object>(1);
-        // map.put("img", R.drawable.e002);
-        map.put(LIST_KEY_ICON, R.drawable.googleplus);
-        map.put(LIST_KEY_NAME, getString(R.string.sticky_list_view_extra));
-        list.add(map);
-        
-        map = new HashMap<String, Object>(1);
-        // map.put("img", R.drawable.e002);
-        map.put(LIST_KEY_ICON, R.drawable.instagram);
-        map.put(LIST_KEY_NAME, getString(R.string.clip_path_demo));
-        list.add(map);
-        
-        map = new HashMap<String, Object>(1);
-        // map.put("img", R.drawable.e002);
-        map.put(LIST_KEY_ICON, R.drawable.deviantart);
-        map.put(LIST_KEY_NAME, getString(R.string.title_activity_dynamic_gridview));
-        list.add(map);
-        
-        map = new HashMap<String, Object>(1);
-        // map.put("img", R.drawable.e002);
-        map.put(LIST_KEY_ICON, R.drawable.linkdin);
-        map.put(LIST_KEY_NAME, getString(R.string.dslv_demo));
-        list.add(map);
-        
-        map = new HashMap<String, Object>(1);
-        // map.put("img", R.drawable.e002);
-        map.put(LIST_KEY_ICON, R.drawable.twitter);
-        map.put(LIST_KEY_NAME, getString(R.string.sprindicator_demo));
-        list.add(map);
+        Animation animation = new AlphaAnimation(0.0f, 1.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
 
-        map = new HashMap<String, Object>(1);
-        // map.put("img", R.drawable.e002);
-        map.put(LIST_KEY_ICON, R.drawable.facebook);
-        map.put(LIST_KEY_NAME, getString(R.string.title_activity_scrolling));
-        list.add(map);
+        animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 1.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_SELF,
+                1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+        animation.setDuration(duration);
+        set.addAnimation(animation);
 
-        return list;
+        LayoutAnimationController controller = new LayoutAnimationController(set, 0.3f);
+        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+        return controller;
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(View view, int position) {
         // TODO Auto-generated method stub
         Intent intent = null;
         switch (position) {
@@ -189,29 +163,5 @@ public class MainActivity extends Activity implements OnItemClickListener {
         if (intent != null) {
             this.startActivity(intent);
         }
-    }
-    
-    /** 
-     * Layout动画 
-     *  
-     * @return 
-     */  
-    protected LayoutAnimationController getAnimationController() {  
-        int duration=400;  
-        AnimationSet set = new AnimationSet(true);  
-  
-        Animation animation = new AlphaAnimation(0.0f, 1.0f);  
-        animation.setDuration(duration);  
-        set.addAnimation(animation);  
-  
-        animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 1.0f,  
-                Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_SELF,  
-                0.0f, Animation.RELATIVE_TO_SELF, 0.0f);
-        animation.setDuration(duration);  
-        set.addAnimation(animation);  
-  
-        LayoutAnimationController controller = new LayoutAnimationController(set, 0.1f);  
-        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);  
-        return controller;  
     }
 }

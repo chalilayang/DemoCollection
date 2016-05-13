@@ -3,6 +3,7 @@
     <dimen name="action_bar_container_height">60dp</dimen>
 
     <dimen name="main_activity_list_divider_height">10dp</dimen>
+    <dimen name="main_activity_list_item_height">100dp</dimen>
 
     <!-- ClipPathTestActivity -->
     <dimen name="round_shape_radius">50sp</dimen>
