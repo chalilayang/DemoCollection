@@ -341,7 +341,8 @@ public class OkHttpClient implements Cloneable, Call.Factory {
   /**
    * Prepares the {@code request} to be executed at some point in the future.
    */
-  @Override public Call newCall(Request request) {
+  @Override
+  public Call newCall(Request request) {
     return new RealCall(this, request);
   }
 
