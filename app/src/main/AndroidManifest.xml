@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SprindicatorActivity"></activity>
+        <activity android:name=".SprindicatorActivity"
+                  android:theme="@style/AppTheme"></activity>
         <activity android:name=".AboutActivity"></activity>
         <activity
             android:name=".ExplosionActivity"
