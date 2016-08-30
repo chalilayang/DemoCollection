@@ -68,4 +68,8 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <declare-styleable name="MyCustomStyle">
+        <attr name="anchor_id" format="integer|reference"/>
+    </declare-styleable>
 </resources>

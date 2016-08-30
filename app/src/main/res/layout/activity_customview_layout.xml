@@ -9,27 +9,26 @@
         android:id="@+id/action_bar_container"
         layout="@layout/action_bar" />
 
-    <TextView
-        android:id="@+id/textview_one"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/action_bar_container"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:background="@drawable/shadow"
-        android:text="@string/app_name"
-        android:textColor="@color/white"
-        android:textSize="@dimen/general_big_text_size" >
-    </TextView>
-
-    <com.chalilayang.test.customview.WaveTestView
+    <com.chalilayang.test.customview.CircleLoadingView
         android:id="@+id/wave_test_view"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/action_bar_container"
+        custom:clv_borderColor="@color/colorAccent"
+        custom:clv_valueTextColor="@color/general_focus_color"
+        custom:clv_animator_Interpolator="android.view.animation.OvershootInterpolator"
+        custom:clv_progressValue="60"
+        custom:clv_valueTextSize="80sp"
+        custom:clv_borderWidth="20dp"/>
+    <EditText
+        android:id="@+id/edit_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/textview_one"
-        android:background="@android:color/holo_red_dark" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wave_test_view"/>
 
     <Button
+        android:id="@+id/buttonPanel"
         android:layout_width="@dimen/fab_size"
         android:layout_height="@dimen/fab_size"
         android:background="@drawable/shadow"

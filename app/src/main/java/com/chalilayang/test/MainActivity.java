@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -77,7 +78,7 @@ public class MainActivity extends Activity implements ActivitiesAdapter.onItemCl
             mRecyclerView.setLayoutAnimation(getAnimationController());
         }
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mActivitiesAdapter);
         mActivitiesAdapter.setOnItemClickListener(this);

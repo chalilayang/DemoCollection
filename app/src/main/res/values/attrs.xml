@@ -22,6 +22,15 @@
         <attr name="mlv_titleBottom" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="CircleLoadingView">
+        <attr name="clv_borderWidth" format="dimension" />
+        <attr name="clv_borderColor" format="color" />
+        <attr name="clv_progressValue" format="integer" />
+        <attr name="clv_valueTextSize" format="dimension" />
+        <attr name="clv_valueTextColor" format="color" />
+        <attr name="clv_animator_Interpolator" format="string" />
+    </declare-styleable>
+
     <!-- DiscreteSeekBar specific attributes -->
     <declare-styleable name="Theme">
       <attr name="discreteSeekBarStyle" format="reference"/>
