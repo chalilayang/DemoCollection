@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements ActivitiesAdapter.onItemCl
             mRecyclerView.setLayoutAnimation(getAnimationController());
         }
 
-        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mActivitiesAdapter);
         mActivitiesAdapter.setOnItemClickListener(this);

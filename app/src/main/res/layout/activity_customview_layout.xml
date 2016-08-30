@@ -15,26 +15,44 @@
         android:layout_height="250dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/action_bar_container"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
         custom:clv_borderColor="@color/colorAccent"
         custom:clv_valueTextColor="@color/general_focus_color"
         custom:clv_animator_Interpolator="android.view.animation.OvershootInterpolator"
         custom:clv_progressValue="60"
         custom:clv_valueTextSize="80sp"
         custom:clv_borderWidth="20dp"/>
+    <TextView
+        android:id="@+id/input_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/wave_test_view"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:text="@string/circle_proress_view_tip"
+        android:textSize="@dimen/general_big_text_size"/>
     <EditText
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/wave_test_view"/>
+        android:layout_alignTop="@id/input_text_view"
+        android:layout_alignBottom="@id/input_text_view"
+        android:layout_toRightOf="@id/input_text_view"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:singleLine="true"
+        android:hint="@string/circle_proress_view_hint"
+        android:textSize="@dimen/general_small_text_size"/>
 
     <Button
         android:id="@+id/buttonPanel"
         android:layout_width="@dimen/fab_size"
         android:layout_height="@dimen/fab_size"
         android:background="@drawable/shadow"
+        android:text="Go"
+        android:textColor="@color/white"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"/>
 
 </RelativeLayout>

@@ -2,10 +2,14 @@ package com.chalilayang.test;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.design.widget.Snackbar;
+import android.support.v4.text.TextUtilsCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.chalilayang.test.customview.CircleLoadingView;
 
@@ -31,9 +35,16 @@ public class CustomViewActivity extends Activity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String valueStr = mEditText.getText().toString().trim();
-                float value = Float.parseFloat(valueStr);
-                mCircleLoadingView.setProgress((int)value);
+                String valueStr = mEditText.getText().toString();
+                if (!TextUtils.isEmpty(valueStr)) {
+                    try {
+                        float value = Float.parseFloat(valueStr);
+                        mCircleLoadingView.setProgress((int)value);
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(CustomViewActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }

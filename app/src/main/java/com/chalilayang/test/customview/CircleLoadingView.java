@@ -59,6 +59,8 @@ public class CircleLoadingView extends View {
 
     public CircleLoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setFocusable(false);
+        setWillNotDraw(false);
         init(context, attrs, defStyleAttr);
     }
 
@@ -178,6 +180,9 @@ public class CircleLoadingView extends View {
         canvas.drawText(valueStr, textCenterX, textBaselineY, mTextPaint);
         canvas.restore();
 
+        if (Math.round(progressValue) < 1) {
+            return;
+        }
         canvas.save();
         mCirclePaint.setStrokeWidth(circleWidth);
         mCirclePaint.setStyle(Paint.Style.STROKE);
