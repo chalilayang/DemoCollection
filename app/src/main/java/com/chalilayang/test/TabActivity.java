@@ -1,5 +1,13 @@
 package com.chalilayang.test;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.RemoteException;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +19,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,11 +27,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.chalilayang.test.R;
+import com.chalilayang.test.services.BookManagerService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TabActivity extends AppCompatActivity {
 
+    private static final String TAG = "TabActivity";
+    private static final int MSG_NEWBOOK_ARRIVED = 911;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -38,6 +53,49 @@ public class TabActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    private List<Book> mBookList;
+    private IBookManager iBookManager;
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            iBookManager = IBookManager.Stub.asInterface(service);
+            try {
+                mBookList = iBookManager.getBookList();
+                initView();
+                iBookManager.registerListener(mIOnNewBookArrivedListener);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
+    private IOnNewBookArrivedListener mIOnNewBookArrivedListener = new IOnNewBookArrivedListener.Stub() {
+        @Override
+        public void onNewBookArrived(Book newBook) throws RemoteException {
+            Log.i(TAG, "onNewBookArrived: newBook");
+            Message msg = mHandler.obtainMessage(MSG_NEWBOOK_ARRIVED);
+            msg.obj = newBook;
+            mHandler.sendMessage(msg);
+        }
+    };
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_NEWBOOK_ARRIVED:
+                    Log.i(TAG, "handleMessage: receive new book " + msg.obj);
+                    Snackbar.make(mViewPager, "receive new book " + ((Book)msg.obj).bookName, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +103,12 @@ public class TabActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        Intent intent = new Intent(this, BookManagerService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    public void initView() {
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), mBookList);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -61,11 +122,15 @@ public class TabActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                try {
+                    if (iBookManager != null) {
+                        iBookManager.addBook(Book.newInstance(0, "王子复仇记"));
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
             }
         });
-
     }
 
 
@@ -89,6 +154,20 @@ public class TabActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (iBookManager != null && iBookManager.asBinder().isBinderAlive()) {
+            try {
+                Log.d(TAG, "onDestroy: unregister listener :" + mIOnNewBookArrivedListener);
+                iBookManager.unregisterListener(mIOnNewBookArrivedListener);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        unbindService(mConnection);
+        super.onDestroy();
     }
 
     /**
@@ -132,8 +211,14 @@ public class TabActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private List<Book> mBookList;
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+        }
+
+        public SectionsPagerAdapter(FragmentManager fm, List<Book> bookList) {
+            super(fm);
+            this.mBookList = bookList;
         }
 
         @Override
@@ -146,24 +231,34 @@ public class TabActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 5;
+            if (this.mBookList != null && this.mBookList.size() >= 3) {
+                return this.mBookList.size();
+            } else {
+                return 5;
+            }
+
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-                case 3:
-                    return "SECTION 4";
-                case 4:
-                    return "SECTION 5";
+            if (this.mBookList != null && this.mBookList.size() >= 3) {
+                return this.mBookList.get(position).bookName;
+            } else {
+                switch (position) {
+                    case 0:
+                        return "SECTION 1";
+                    case 1:
+                        return "SECTION 2";
+                    case 2:
+                        return "SECTION 3";
+                    case 3:
+                        return "SECTION 4";
+                    case 4:
+                        return "SECTION 5";
 
+                }
             }
+
             return null;
         }
     }
