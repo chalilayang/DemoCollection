@@ -30,9 +30,10 @@ import com.mobeta.android.demodslv.Launcher;
 
 public class MainActivity extends Activity implements ActivitiesAdapter.onItemClickListener {
     public RecyclerView mRecyclerView;
-    private ActivitiesAdapter mActivitiesAdapter;
     public DisplayMetrics mDisplayMetrics;
+    private ActivitiesAdapter mActivitiesAdapter;
     private MaterialMenuView mMaterialMenuView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +97,10 @@ public class MainActivity extends Activity implements ActivitiesAdapter.onItemCl
         mList.add(new ActivitiesAdapter.Data(R.drawable.twitter, getString(R.string.dslv_demo)));
         mList.add(new ActivitiesAdapter.Data(R.drawable.pintrest, getString(R.string.sprindicator_demo)));
         mList.add(new ActivitiesAdapter.Data(R.drawable.behance, getString(R.string.title_activity_scrolling)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.deviantart, getString(R.string.title_activity_tab)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.googleplus, getString(R.string.title_activity_navigation_drawer)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.youtube, getString(R.string.title_activity_fullscreen)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.facebook, getString(R.string.title_activity_login)));
         return mList;
     }
 
@@ -105,7 +110,7 @@ public class MainActivity extends Activity implements ActivitiesAdapter.onItemCl
      * @return
      */
     protected LayoutAnimationController getAnimationController() {
-        int duration=400;
+        int duration = 400;
         AnimationSet set = new AnimationSet(true);
 
         Animation animation = new AlphaAnimation(0.0f, 1.0f);
@@ -157,6 +162,18 @@ public class MainActivity extends Activity implements ActivitiesAdapter.onItemCl
                 break;
             case 9:
                 intent = new Intent(this, ScrollingActivity.class);
+                break;
+            case 10:
+                intent = new Intent(this, TabActivity.class);
+                break;
+            case 11:
+                intent = new Intent(this, NavigationDrawerActivity.class);
+                break;
+            case 12:
+                intent = new Intent(this, FullscreenActivity.class);
+                break;
+            case 13:
+                intent = new Intent(this, LoginActivity.class);
                 break;
             default:
                 break;

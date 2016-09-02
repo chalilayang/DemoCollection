@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.chalilayang.test">
+          package="com.chalilayang.test">
+
+    <!-- To access Google+ APIs: -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
+        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@drawable/dribble"
         android:label="@string/app_name"
@@ -13,71 +22,92 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".SprindicatorActivity"
-                  android:theme="@style/AppTheme"></activity>
-        <activity android:name=".AboutActivity"></activity>
+        <activity
+            android:name=".SprindicatorActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".AboutActivity"/>
         <activity
             android:name=".ExplosionActivity"
-            android:label="@string/explosion"></activity>
+            android:label="@string/explosion"/>
         <activity
             android:name=".WaveLoadingActivity"
-            android:label="@string/waveloading"></activity>
+            android:label="@string/waveloading"/>
         <activity
             android:name=".StickyListActivity"
-            android:label="@string/sticky_list_view"></activity>
+            android:label="@string/sticky_list_view"/>
         <activity
             android:name=".LableTagActivity"
-            android:label="@string/lable_tag_sample"></activity>
+            android:label="@string/lable_tag_sample"/>
         <activity
             android:name=".StickyListTestActivity"
-            android:label="@string/sticky_list_view_extra"></activity>
-        <activity android:name=".ExpandableListTestActivity"></activity>
+            android:label="@string/sticky_list_view_extra"/>
+        <activity android:name=".ExpandableListTestActivity"/>
         <activity
             android:name=".CustomViewActivity"
             android:label="@string/title_activity_clip_path_test"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
         <activity
             android:name="com.mobeta.android.demodslv.ArbItemSizeDSLV"
             android:label="@string/title_activity_clip_path_test"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
         <activity
             android:name="com.mobeta.android.demodslv.BGHandle"
-            android:label="@string/title_activity_clip_path_test"></activity>
+            android:label="@string/title_activity_clip_path_test"/>
         <activity
             android:name="com.mobeta.android.demodslv.CursorDSLV"
-            android:label="@string/title_activity_clip_path_test"></activity>
+            android:label="@string/title_activity_clip_path_test"/>
         <activity
             android:name="com.mobeta.android.demodslv.MultipleChoiceListView"
-            android:label="@string/title_activity_clip_path_test"></activity>
+            android:label="@string/title_activity_clip_path_test"/>
         <activity
             android:name="com.mobeta.android.demodslv.Sections"
-            android:label="@string/title_activity_clip_path_test"></activity>
+            android:label="@string/title_activity_clip_path_test"/>
         <activity
             android:name="com.mobeta.android.demodslv.SingleChoiceListView"
-            android:label="@string/title_activity_clip_path_test"></activity>
+            android:label="@string/title_activity_clip_path_test"/>
         <activity
             android:name="com.mobeta.android.demodslv.TestBedDSLV"
-            android:label="@string/title_activity_clip_path_test"></activity>
+            android:label="@string/title_activity_clip_path_test"/>
         <activity
             android:name="com.mobeta.android.demodslv.WarpDSLV"
-            android:label="@string/title_activity_clip_path_test"></activity>
+            android:label="@string/title_activity_clip_path_test"/>
         <activity
             android:name="com.mobeta.android.demodslv.Launcher"
             android:label="@string/dslv_demo"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
         <activity
             android:name="org.askerov.dynamicgrid.example.GridActivity"
             android:label="@string/title_activity_dynamic_gridview"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
         <activity
             android:name=".ScrollingActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".TabActivity"
+            android:label="@string/title_activity_tab"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".NavigationDrawerActivity"
+            android:label="@string/title_activity_navigation_drawer"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen"
+            android:theme="@style/FullscreenTheme">
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login">
+        </activity>
     </application>
 
 </manifest>

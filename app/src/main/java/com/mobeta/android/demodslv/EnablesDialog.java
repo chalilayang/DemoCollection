@@ -14,6 +14,7 @@ import android.os.Bundle;
 
 public class EnablesDialog extends DialogFragment {
 
+    private static final String TAG = "EnablesDialog";
     private boolean[] mEnabled;
 
     private EnabledOkListener mListener;
@@ -26,12 +27,16 @@ public class EnablesDialog extends DialogFragment {
         mEnabled[2] = false;
     }
 
-    public EnablesDialog(boolean drag, boolean sort, boolean remove) {
-        super();
-        mEnabled = new boolean[3];
+    public static EnablesDialog newInstance(boolean drag, boolean sort, boolean remove) {
+        EnablesDialog fragment = new EnablesDialog();
+        boolean[] mEnabled = new boolean[3];
         mEnabled[0] = drag;
         mEnabled[1] = sort;
         mEnabled[2] = remove;
+        Bundle args = new Bundle();
+        args.putBooleanArray(TAG, mEnabled);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     public interface EnabledOkListener {
@@ -44,6 +49,9 @@ public class EnablesDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        if (getArguments() != null) {
+            mEnabled = getArguments().getBooleanArray(TAG);
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Set the dialog title
         builder.setTitle(R.string.select_remove_mode)

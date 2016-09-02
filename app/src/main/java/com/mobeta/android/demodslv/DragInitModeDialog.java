@@ -16,6 +16,7 @@ import com.mobeta.android.dslv.DragSortController;
  */
 public class DragInitModeDialog extends DialogFragment {
 
+    private static final String ARG_PARAM1 = "DragInitModeDialog";
     private DragSortController mControl;
 
     private int mDragInitMode;
@@ -27,9 +28,12 @@ public class DragInitModeDialog extends DialogFragment {
         mDragInitMode = DragSortController.ON_DOWN;
     }
 
-    public DragInitModeDialog(int dragStartMode) {
-        super();
-        mDragInitMode = dragStartMode;
+    public static DragInitModeDialog newInstance(int param2) {
+        DragInitModeDialog fragment = new DragInitModeDialog();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PARAM1, param2);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     public interface DragOkListener {
@@ -42,6 +46,9 @@ public class DragInitModeDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        if (getArguments() != null) {
+            mDragInitMode  = getArguments().getInt(ARG_PARAM1);
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Set the dialog title
         builder.setTitle(R.string.select_remove_mode)

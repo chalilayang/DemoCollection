@@ -101,17 +101,17 @@ EnablesDialog.EnabledOkListener
 
         switch (item.getItemId()) {
         case R.id.select_remove_mode:
-            RemoveModeDialog rdialog = new RemoveModeDialog(mRemoveMode);
+            RemoveModeDialog rdialog = RemoveModeDialog.newInstance(mRemoveMode);
             rdialog.setRemoveOkListener(this);
             rdialog.show(getSupportFragmentManager(), "RemoveMode");
             return true;
         case R.id.select_drag_init_mode:
-            DragInitModeDialog ddialog = new DragInitModeDialog(mDragStartMode);
+            DragInitModeDialog ddialog = DragInitModeDialog.newInstance(mDragStartMode);
             ddialog.setDragOkListener(this);
             ddialog.show(getSupportFragmentManager(), "DragInitMode");
             return true;
         case R.id.select_enables:
-            EnablesDialog edialog = new EnablesDialog(mDragEnabled, mSortEnabled, mRemoveEnabled);
+            EnablesDialog edialog = EnablesDialog.newInstance(mDragEnabled, mSortEnabled, mRemoveEnabled);
             edialog.setEnabledOkListener(this);
             edialog.show(getSupportFragmentManager(), "Enables");
             return true;

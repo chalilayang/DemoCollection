@@ -16,6 +16,7 @@ import com.mobeta.android.dslv.DragSortController;
  */
 public class RemoveModeDialog extends DialogFragment {
 
+    private static final String ARG_PARAM1 = "RemoveModeDialog";
     private int mRemoveMode;
 
     private RemoveOkListener mListener;
@@ -25,9 +26,12 @@ public class RemoveModeDialog extends DialogFragment {
         mRemoveMode = DragSortController.FLING_REMOVE;
     }
 
-    public RemoveModeDialog(int inRemoveMode) {
-        super();
-        mRemoveMode = inRemoveMode;
+    public static RemoveModeDialog newInstance(int param2) {
+        RemoveModeDialog fragment = new RemoveModeDialog();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PARAM1, param2);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     public interface RemoveOkListener {
@@ -40,6 +44,9 @@ public class RemoveModeDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        if (getArguments() != null) {
+            mRemoveMode = getArguments().getInt(ARG_PARAM1);
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Set the dialog title
         builder.setTitle(R.string.select_remove_mode)
