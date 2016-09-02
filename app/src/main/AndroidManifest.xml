@@ -115,6 +115,11 @@
             android:exported="false"
             android:process=":remote">
         </service>
+        <service
+            android:name=".services.BinderPoolService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>
