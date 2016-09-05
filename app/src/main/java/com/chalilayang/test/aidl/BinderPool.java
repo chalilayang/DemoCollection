@@ -24,7 +24,8 @@ public class BinderPool {
     private CountDownLatch mCountDownLatch;
     private IBinderPool mBinderPool;
     private BinderPool(Context context) {
-        this.mContext = context;
+        this.mContext = context.getApplicationContext();
+        connectBinderPoolService();
     }
     public static BinderPool getInstance(Context context) {
         if (sInstance == null) {
@@ -50,12 +51,13 @@ public class BinderPool {
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            mBinderPool = IBinderPool.Stub.asInterface(service);
+            mBinderPool = BinderPoolImpl.asInterface(service);
             try {
                 mBinderPool.asBinder().linkToDeath(mDeathRecipient, 0);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
+            mCountDownLatch.countDown();
         }
 
         @Override
@@ -72,4 +74,22 @@ public class BinderPool {
             connectBinderPoolService();
         }
     };
+
+    public IBinder queryBinder(int code) {
+        IBinder binder = null;
+        try {
+            if (mBinderPool != null) {
+                binder = mBinderPool.queryBinder(code);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return binder;
+    }
+
+    public static void unbindService() {
+        if (sInstance != null && sInstance.mConnection != null) {
+            sInstance.mContext.unbindService(sInstance.mConnection);
+        }
+    }
 }

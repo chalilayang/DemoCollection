@@ -1,9 +1,6 @@
 package com.chalilayang.test;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
+import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -27,17 +24,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.chalilayang.test.services.BookManagerService;
+import com.chalilayang.test.aidl.BinderPool;
+import com.chalilayang.test.aidl.BinderPoolImpl;
+import com.chalilayang.test.aidl.BookManagerImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TabActivity extends AppCompatActivity {
 
     private static final String TAG = "TabActivity";
     private static final int MSG_NEWBOOK_ARRIVED = 911;
+    private static final int MSG_BINDER_READY = 912;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -55,24 +53,7 @@ public class TabActivity extends AppCompatActivity {
 
     private List<Book> mBookList;
     private IBookManager iBookManager;
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            iBookManager = IBookManager.Stub.asInterface(service);
-            try {
-                mBookList = iBookManager.getBookList();
-                initView();
-                iBookManager.registerListener(mIOnNewBookArrivedListener);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-
-        }
-    };
+    private BinderPool mBinderPool;
 
     private IOnNewBookArrivedListener mIOnNewBookArrivedListener = new IOnNewBookArrivedListener.Stub() {
         @Override
@@ -93,6 +74,14 @@ public class TabActivity extends AppCompatActivity {
                     Log.i(TAG, "handleMessage: receive new book " + msg.obj);
                     Snackbar.make(mViewPager, "receive new book " + ((Book)msg.obj).bookName, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                case MSG_BINDER_READY:
+                    try {
+                        mBookList = iBookManager.getBookList();
+                        initView();
+                        iBookManager.registerListener(mIOnNewBookArrivedListener);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
             }
         }
     };
@@ -103,8 +92,15 @@ public class TabActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Intent intent = new Intent(this, BookManagerService.class);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mBinderPool = BinderPool.getInstance(getApplicationContext());
+                IBinder binder = mBinderPool.queryBinder(BinderPoolImpl.BINDER_ID_BOOKMANAGER);
+                iBookManager = BookManagerImpl.asInterface(binder);
+                mHandler.obtainMessage(MSG_BINDER_READY).sendToTarget();
+            }
+        }).start();
     }
 
     public void initView() {
@@ -112,25 +108,34 @@ public class TabActivity extends AppCompatActivity {
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        if (mViewPager != null) {
+            mViewPager.setAdapter(mSectionsPagerAdapter);
+        }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        tabLayout.setupWithViewPager(mViewPager);
+        if (tabLayout != null) {
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+            tabLayout.setupWithViewPager(mViewPager);
+        }
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    if (iBookManager != null) {
-                        iBookManager.addBook(Book.newInstance(0, "王子复仇记"));
+        if (fab != null) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        if (iBookManager != null) {
+                            int bookId = iBookManager.getBookList().size() + 1;
+                            iBookManager.addBook(Book.newInstance(bookId, "王子复仇记"));
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
                     }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
                 }
-            }
-        });
+            });
+        }
+
     }
 
 
@@ -166,7 +171,7 @@ public class TabActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        unbindService(mConnection);
+//        BinderPool.unbindService();
         super.onDestroy();
     }
 
@@ -217,7 +222,7 @@ public class TabActivity extends AppCompatActivity {
         }
 
         public SectionsPagerAdapter(FragmentManager fm, List<Book> bookList) {
-            super(fm);
+            this(fm);
             this.mBookList = bookList;
         }
 
@@ -258,7 +263,6 @@ public class TabActivity extends AppCompatActivity {
 
                 }
             }
-
             return null;
         }
     }

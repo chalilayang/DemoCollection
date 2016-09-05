@@ -10,9 +10,6 @@ import com.chalilayang.test.aidl.BinderPoolImpl;
 public class BinderPoolService extends Service {
     private static final String TAG = "BinderPoolService";
     private Binder mBinder = new BinderPoolImpl();
-    public BinderPoolService() {
-    }
-
     @Override
     public IBinder onBind(Intent intent) {
         return this.mBinder;
