@@ -11,6 +11,6 @@ public class DemoApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fresco.initialize(this);
+//        Fresco.initialize(this);
     }
 }
