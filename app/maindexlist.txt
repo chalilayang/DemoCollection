@@ -162,7 +162,6 @@ android/support/v7/graphics/drawable/DrawerArrowDrawable$ArrowDirection.class
 android/support/v7/graphics/drawable/DrawerArrowDrawable.class
 android/support/v7/widget/ViewUtils.class
 android/support/v7/widget/TintTypedArray.class
-android/support/v7/widget/Toolbar$OnMenuItemClickListener.class
 android/support/v7/widget/LinearLayoutCompat.class
 android/support/v7/widget/ActionMenuView$LayoutParams.class
 android/support/v7/widget/LinearLayoutCompat$DividerMode.class
@@ -1478,8 +1477,6 @@ com/chalilayang/test/ExplosionActivity.class
 com/chalilayang/test/FlowActivity$1.class
 com/chalilayang/test/FlowActivity$2.class
 com/chalilayang/test/FlowActivity$3.class
-com/chalilayang/test/FlowActivity$4.class
-com/chalilayang/test/FlowActivity$5.class
 com/chalilayang/test/FlowActivity.class
 com/chalilayang/test/FullscreenActivity$1.class
 com/chalilayang/test/FullscreenActivity$2.class
