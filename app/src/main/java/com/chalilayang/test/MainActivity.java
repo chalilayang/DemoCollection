@@ -101,6 +101,7 @@ public class MainActivity extends Activity implements ActivitiesAdapter.onItemCl
         mList.add(new ActivitiesAdapter.Data(R.drawable.googleplus, getString(R.string.title_activity_navigation_drawer)));
         mList.add(new ActivitiesAdapter.Data(R.drawable.youtube, getString(R.string.title_activity_fullscreen)));
         mList.add(new ActivitiesAdapter.Data(R.drawable.facebook, getString(R.string.title_activity_login)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.dribble, getString(R.string.title_activity_flow)));
         return mList;
     }
 
@@ -174,6 +175,9 @@ public class MainActivity extends Activity implements ActivitiesAdapter.onItemCl
                 break;
             case 13:
                 intent = new Intent(this, LoginActivity.class);
+                break;
+            case 14:
+                intent = new Intent(this, FlowActivity.class);
                 break;
             default:
                 break;

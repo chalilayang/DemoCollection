@@ -473,4 +473,5 @@ limitations under the License.
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="title_activity_flow">FlowActivity</string>
 </resources>

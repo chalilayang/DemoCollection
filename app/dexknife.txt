@@ -5,6 +5,8 @@ android.support.v?.**
 
 -split rx.**  # same as rx.**
 
+-split com.nineoldandroids.**
+
 **.MainActivity2.class
 **.MainActivity2$*.class   # use $* to filter the inner classes.
 
