@@ -40,6 +40,10 @@
     <string name="title_activity_dynamic_gridview">DynamicGridView</string>
     <string name="circle_proress_view_hint">0-100</string>
     <string name="circle_proress_view_tip">进度:</string>
+    <string name="menu_action_delete">删除</string>
+
+    <string name="action_order_by_desc">时间优先</string>
+    <string name="action_order_by_asc">时间顺序</string>
 
     <string-array name="activity_titles">
         <item>Basic usage playground</item>
@@ -473,5 +477,5 @@ limitations under the License.
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_flow">FlowActivity</string>
+    <string name="title_activity_flow">流年</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.chalilayang.test.adapter;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -19,9 +21,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chalilayang.test.R;
 import com.chalilayang.test.entity.BaseData;
+import com.chalilayang.test.entity.ImageData;
 import com.facebook.cache.common.CacheKey;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
@@ -35,7 +39,7 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 public class SimpleRecyclerCardAdapter extends RecyclerView.Adapter {
 
     private static final String TAG = "SimpleRecyclerCardAdapt";
-    private List<BaseData> mDataList = new ArrayList<>();
+    private List<ImageData> mDataList = new ArrayList<>();
     private Context mContext;
     private SimpleRecyclerCardAdapter.onItemClickListener onItemClickListener;
     private int mBaseHeight;
@@ -51,9 +55,45 @@ public class SimpleRecyclerCardAdapter extends RecyclerView.Adapter {
         mMeasuredWidth = mDisplayMetrics.widthPixels / 2;
     }
 
-    public void addDataList(List<BaseData> mDataList) {
-        this.mDataList.addAll(mDataList);
+    public ImageData getItem(int position) {
+        if (mDataList != null && mDataList.size() > position) {
+            return mDataList.get(position);
+        }
+        return null;
+    }
+
+    public void clearDataList() {
+        this.mDataList.clear();
         this.notifyDataSetChanged();
+    }
+
+    public void addDataList(List<ImageData> baseDatas) {
+        int itemCount = this.mDataList.size();
+        this.mDataList.addAll(baseDatas);
+        this.notifyItemRangeInserted(itemCount, baseDatas.size());
+    }
+
+    public boolean deleteData(int position) {
+        if (mDataList != null && mDataList.size() > position) {
+            boolean success = true;
+//            File file = new File(mDataList.get(position).getBitmapPath());
+//            if (file != null && file.exists()) {
+//                ContentResolver cr = mContext.getContentResolver();
+//                success = cr.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                        BaseColumns._ID + "=" + mDataList.get(position).getFiledId(), null) >= 1;
+//            }
+            if (success) {
+                mDataList.remove(position);
+                this.notifyItemRemoved(position);
+                int count = Math.min(this.getItemCount() - position, 10);
+                this.notifyItemRangeChanged(position, count);
+            }
+            return success;
+        } else {
+            Toast.makeText(mContext, "deleting pos " + position + " size " + mDataList.size(),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     public void setOnItemClickListener(SimpleRecyclerCardAdapter.onItemClickListener onItemClickListener) {
@@ -69,31 +109,12 @@ public class SimpleRecyclerCardAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mDataList != null) {
-            BaseData mData = mDataList.get(position);
+            ImageData mData = mDataList.get(position);
             FlowViewHolder tempHolder = (FlowViewHolder)holder;
             tempHolder.mPosition = position;
-            tempHolder.mTextView.setText(mData.getmTitle());
+            tempHolder.mTextView.setText("pos " + position + " " + mData.getBucketName());
             float ratio = -1f;
-            if (mData.getBitmap() != null) {
-                tempHolder.mImageView.setImageBitmap(mData.getBitmap());
-//            } else if (mData.getFiledId() >= 0) {
-//                SimpleDraweeView view = (SimpleDraweeView) tempHolder.mImageView;
-//                BitmapFactory.Options options = new BitmapFactory.Options();
-//                Bitmap thumnail = MediaStore.Images.Thumbnails
-//                        .getThumbnail(
-//                                cr,
-//                                mData.getFiledId(),
-//                                MediaStore.Images.Thumbnails.MINI_KIND,
-//                                options
-//                        );//获取指定图片缩略片
-//                ratio = thumnail.getHeight() * 1f / thumnail.getWidth();
-//                view.setImageBitmap(thumnail);
-//                ImageRequest imgRequest = new ImageRequest();
-//                boolean inMemoryCache = imagePipeline.isInBitmapMemoryCache(uri);
-//                imagePipeline.getCacheKeyFactory().getBitmapCacheKey(ImageRequest)
-//
-//                tempHolder.mTextView.setText("缩略图"+mData.getmTitle());
-            } else if (!TextUtils.isEmpty(mData.getBitmapPath())) {
+            if (!TextUtils.isEmpty(mData.getFilePath())) {
                 Log.i(TAG, "onBindViewHolder: start  " + position);
                 if (position == 31) {
                     Log.i(TAG, "onBindViewHolder: start  " + position);
@@ -101,10 +122,10 @@ public class SimpleRecyclerCardAdapter extends RecyclerView.Adapter {
                 SimpleDraweeView view = (SimpleDraweeView) tempHolder.mImageView;
                 BitmapFactory.Options opts = new BitmapFactory.Options();
                 opts.inJustDecodeBounds = true;
-                BitmapFactory.decodeFile(mData.getBitmapPath(), opts);
+                BitmapFactory.decodeFile(mData.getFilePath(), opts);
                 ratio = opts.outHeight * 1f / opts.outWidth;
 
-                String filepath = mData.getBitmapPath();
+                String filepath = mData.getFilePath();
                 ImageRequest imageRequest = getImageRequest(
                         filepath,
                         this.mMeasuredWidth,
@@ -115,8 +136,6 @@ public class SimpleRecyclerCardAdapter extends RecyclerView.Adapter {
                         .build();
                 view.setController(controller);
                 Log.i(TAG, "onBindViewHolder: end  " + position);
-            } else if (mData.getmResID() > 0) {
-                tempHolder.mImageView.setImageResource(mData.getmResID());
             }
 
             int tt = (position+1) % 2;
@@ -161,7 +180,7 @@ public class SimpleRecyclerCardAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    class FlowViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class FlowViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         public ImageView mImageView;
         public TextView mTextView;
@@ -173,6 +192,7 @@ public class SimpleRecyclerCardAdapter extends RecyclerView.Adapter {
             mTextView = (TextView) itemView.findViewById(R.id.item_title);
             mRoot = itemView.findViewById(R.id.cardview);
             mRoot.setOnClickListener(this);
+            mRoot.setOnLongClickListener(this);
         }
 
         @Override
@@ -181,9 +201,19 @@ public class SimpleRecyclerCardAdapter extends RecyclerView.Adapter {
                 SimpleRecyclerCardAdapter.this.onItemClickListener.onItemClick(v, mPosition);
             }
         }
+
+        @Override
+        public boolean onLongClick(View v) {
+            if (SimpleRecyclerCardAdapter.this.onItemClickListener != null) {
+                return SimpleRecyclerCardAdapter.this
+                        .onItemClickListener.onItemLongClick(v, mPosition);
+            }
+            return false;
+        }
     }
 
     public interface onItemClickListener {
         void onItemClick(View view, int position);
+        boolean onItemLongClick(View view, int position);
     }
 }

@@ -1,14 +1,11 @@
 package com.chalilayang.test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
@@ -26,6 +23,8 @@ import org.askerov.dynamicgrid.example.GridActivity;
 import com.balysv.materialmenu.MaterialMenuView;
 import com.balysv.materialmenu.MaterialMenuDrawable.IconState;
 import com.mobeta.android.demodslv.Launcher;
+
+import cn.bmob.v3.Bmob;
 
 
 public class MainActivity extends Activity implements ActivitiesAdapter.onItemClickListener {
@@ -48,6 +47,7 @@ public class MainActivity extends Activity implements ActivitiesAdapter.onItemCl
     }
 
     private void init() {
+        Bmob.initialize(this, "c2a7ca6835292ac0bb7caf216d4e3bcc");
         if (mMaterialMenuView == null) {
             mMaterialMenuView = (MaterialMenuView) findViewById(R.id.action_bar_menu);
             mMaterialMenuView.setOnClickListener(new OnClickListener() {

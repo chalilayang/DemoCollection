@@ -2,6 +2,7 @@ package com.chalilayang.test;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
@@ -11,16 +12,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuBuilder;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -30,6 +32,7 @@ import android.widget.Toast;
 
 import com.chalilayang.test.adapter.SimpleRecyclerCardAdapter;
 import com.chalilayang.test.entity.BaseData;
+import com.chalilayang.test.entity.ImageData;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.AbstractDraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -38,19 +41,20 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FlowActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        PopupMenu.OnMenuItemClickListener {
     private static final String TAG = "FlowActivity";
+    private static final int ORDER_BY_DATE_DESC = 1;
+    private static final int ORDER_BY_DATE_ASC = 2;
+
     private static final int MSG_READY = 1212;
     private Toolbar mToolbar;
     private RecyclerView mRecyclerView;
-    private List<BaseData> mDatas = null;
-    private List<BaseData> mBitmapDatas = new ArrayList<>();
-
+    private List<ImageData> mTmpDataList = new ArrayList<>();
     private WindowManager windowManager;
     private WindowManager.LayoutParams layoutParams;
     private DisplayMetrics displayMetrics;
@@ -66,8 +70,12 @@ public class FlowActivity extends AppCompatActivity
             super.handleMessage(msg);
             switch (msg.what) {
                 case MSG_READY:
-                    mSimpleRecyclerAdapter.addDataList(mBitmapDatas);
-                    Toast.makeText(FlowActivity.this, "图片获取成功" + mBitmapDatas.size(), Toast.LENGTH_SHORT).show();
+                    mSimpleRecyclerAdapter.clearDataList();
+                    mSimpleRecyclerAdapter.addDataList(mTmpDataList);
+                    Toast.makeText(FlowActivity.this,
+                            "图片获取成功" + mTmpDataList.size(),
+                            Toast.LENGTH_SHORT
+                    ).show();
                     break;
                 default:
                     break;
@@ -90,7 +98,7 @@ public class FlowActivity extends AppCompatActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                getAllSDImageFolder();
+                getAllSDImageFolder(ORDER_BY_DATE_DESC);
                 mHandler.obtainMessage(MSG_READY).sendToTarget();
             }
         }).start();
@@ -99,7 +107,7 @@ public class FlowActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation_drawer, menu);
+        getMenuInflater().inflate(R.menu.activity_flow_menu, menu);
         return true;
     }
 
@@ -111,7 +119,25 @@ public class FlowActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_order_desc) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mHandler.removeMessages(MSG_READY);
+                    getAllSDImageFolder(ORDER_BY_DATE_DESC);
+                    mHandler.obtainMessage(MSG_READY).sendToTarget();
+                }
+            }).start();
+            return true;
+        } else if (id == R.id.action_order_asc) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mHandler.removeMessages(MSG_READY);
+                    getAllSDImageFolder(ORDER_BY_DATE_ASC);
+                    mHandler.obtainMessage(MSG_READY).sendToTarget();
+                }
+            }).start();
             return true;
         }
 
@@ -122,18 +148,29 @@ public class FlowActivity extends AppCompatActivity
         mSimpleRecyclerAdapter = new SimpleRecyclerCardAdapter(this);
         mRecyclerView.setAdapter(mSimpleRecyclerAdapter);
         //设置网格布局管理器
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        );
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mSimpleRecyclerAdapter.setOnItemClickListener(new SimpleRecyclerCardAdapter.onItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 if (lastSelectionFloating == position) {
                     return;
                 }
+//                lastSelectionFloating = position;
                 Toast.makeText(FlowActivity.this,
                         "pos " + position + " "+ view.getTop() + " "+view.getLeft(),
                         Toast.LENGTH_SHORT).show();
 
-                createFloatView(view, position);
+//                createFloatView(view, position);
+                startImageActivity(position);
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, int position) {
+                menu(view, position);
+                return false;
             }
         });
     }
@@ -153,16 +190,6 @@ public class FlowActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private List<BaseData> getData() {
-        List<BaseData> mList = new ArrayList<BaseData>(10);
-        mList.add(new BaseData(R.drawable.behance, getString(R.string.explosion)));
-        mList.add(new BaseData(R.drawable.youtube, getString(R.string.waveloading)));
-        mList.add(new BaseData(R.drawable.facebook, getString(R.string.sticky_list_view)));
-        mList.add(new BaseData(R.drawable.dribble, getString(R.string.lable_tag_sample)));
-        mList.add(new BaseData(R.drawable.dropbox, getString(R.string.sticky_list_view_extra)));
-        return mList;
-    }
-
     private boolean hasFloatViewAdded = false;
 
     @Override
@@ -175,36 +202,54 @@ public class FlowActivity extends AppCompatActivity
         return super.dispatchTouchEvent(ev);
     }
 
-    private void setShortcutsVisible(Menu menu) {
-        if (MenuBuilder.class.isInstance(menu)) {
-            MenuBuilder builder = (MenuBuilder) menu;
-            builder.setShortcutsVisible(true);
-            try {
-                Method m = menu.getClass().getDeclaredMethod(
-                        "setOptionalIconsVisible", Boolean.TYPE);
-                m.setAccessible(true);
-                m.invoke(builder, true);
-            } catch (Exception ie) {
-            }
+    private void getAllSDImageFolder(int order_type) {
+        mTmpDataList.clear();
+        String order = MediaStore.Images.Media.DATE_MODIFIED + " desc";
+        switch (order_type) {
+            case ORDER_BY_DATE_ASC:
+                order = MediaStore.Images.Media.DATE_MODIFIED + " asc";
+                break;
+            case ORDER_BY_DATE_DESC:
+                order = MediaStore.Images.Media.DATE_MODIFIED + " desc";
+                break;
         }
-    }
-
-    private void getAllSDImageFolder() {
-
         ContentResolver cr = getContentResolver();
 
         Cursor cursor = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null,
                 MediaStore.Images.Media.MIME_TYPE + "=? or "
+                        + MediaStore.Images.Media.MIME_TYPE + "=? or "
+                        + MediaStore.Images.Media.MIME_TYPE + "=? or "
+                        + MediaStore.Images.Media.MIME_TYPE + "=? or "
                         + MediaStore.Images.Media.MIME_TYPE + "=?",
-                new String[] { "image/jpeg", "image/png" }, MediaStore.Images.Media.DATE_MODIFIED);
+                new String[] {
+                        "image/jpeg",
+                        "image/jpg",
+                        "image/png",
+                        "image/bmp",
+                        "image/webp"
+                },
+                order);
 
 
         if(null != cursor){
             while(cursor.moveToNext()){
                 long fileId = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID));
-                String filename = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
+                String filename = cursor.getString(
+                        cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME)
+                );
                 String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-                this.mBitmapDatas.add(new BaseData(path, filename, fileId));
+                long time = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN));
+                String des = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DESCRIPTION));
+                String latitude = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.LATITUDE));
+                String longitude = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.LONGITUDE));
+                String bucket = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
+                ImageData data = new ImageData(path, filename, fileId, time);
+                data.setBucketName(bucket);
+                data.setLocation(latitude, longitude);
+                data.setDescription(des);
+                if (bucket.equalsIgnoreCase("Camera")) {
+                    this.mTmpDataList.add(data);
+                }
             }
             if(!cursor.isClosed()){
                 cursor.close();
@@ -212,11 +257,19 @@ public class FlowActivity extends AppCompatActivity
         }
     }
 
+    public void startImageActivity(int position) {
+        Intent intent = new Intent(this, FullscreenActivity.class);
+        intent.putExtra(FullscreenActivity.DATA_KEY,
+                (ImageData) mSimpleRecyclerAdapter.getItem(position)
+        );
+        startActivity(intent);
+    }
+
     public void createFloatView(View view, int postion) {
-        BaseData data = mBitmapDatas.get(postion);
+        ImageData data = mSimpleRecyclerAdapter.getItem(postion);
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(data.getBitmapPath(), opts);
+        BitmapFactory.decodeFile(data.getFilePath(), opts);
         int targetWidth;
         int targetHeight;
         if (opts.outWidth >= opts.outHeight) {
@@ -242,7 +295,7 @@ public class FlowActivity extends AppCompatActivity
         layoutParams.width = targetWidth;//窗口的宽和高
         layoutParams.height = targetHeight;
 
-        String filepath = data.getBitmapPath();
+        String filepath = data.getFilePath();
         ImageRequest imageRequest =
                 ImageRequestBuilder.newBuilderWithSource(Uri.fromFile(new File(filepath)))
                 .setResizeOptions(new ResizeOptions(targetWidth, targetHeight))
@@ -287,5 +340,29 @@ public class FlowActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    void menu(View view, int position) {
+        itemToDelete = position;
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.inflate(R.menu.activity_flow_popup_menu);
+        popupMenu.show();
+    }
+
+    private int itemToDelete = -1;
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete:
+                if (itemToDelete > 0) {
+                    boolean success =
+                            mSimpleRecyclerAdapter.deleteData(itemToDelete);
+                    if (!success) {
+                        Snackbar.make(mRecyclerView, "失败。。", Snackbar.LENGTH_SHORT).show();
+                    }
+                }
+                return true;
+        }
+        return false;
     }
 }
