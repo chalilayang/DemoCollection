@@ -14,6 +14,10 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -32,9 +36,9 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONObject;
-import org.w3c.dom.Text;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.ValueAnimator;
 
 import java.io.File;
 import java.lang.reflect.Type;
@@ -61,9 +65,11 @@ public class FullscreenActivity extends AppCompatActivity {
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
+    private static int HEIGHT_IMAGE_INFO_DEFAULT = ViewGroup.LayoutParams.WRAP_CONTENT;
     private final Handler mHideHandler = new Handler();
     private RequestQueue requestQueue;
     private View menuContainer;
+    private View btnContainer;
     private SimpleDraweeView simpleDraweeView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -71,19 +77,28 @@ public class FullscreenActivity extends AppCompatActivity {
         public void run() {
             // Delayed removal of status and navigation bar
 
-            // Note that some of these constants are new as of API 16 (Jelly Bean)
+            // Note that some of these constants are new as of API 16 (Jelly PosBean)
             // and API 19 (KitKat). It is safe to use them, as they are inlined
             // at compile-time and do nothing on earlier devices.
-            menuContainer.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+            simpleDraweeView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                     | View.SYSTEM_UI_FLAG_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+            Log.i(TAG, "hide: " + menuContainer.getTranslationY() + "  " + menuContainer.getTop());
+            ObjectAnimator.ofFloat(menuContainer,
+                    "translationY",
+                    0,
+                    menuContainer.getMeasuredHeight()
+            ).setDuration(150).start();
         }
     };
     private TextView imageInfoTv;
     private DisplayMetrics displayMetrics;
+
+    private ImageData imageData;
+    private NearByInfoBean nearByInfo;
 
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
@@ -93,30 +108,15 @@ public class FullscreenActivity extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.show();
             }
-            menuContainer.setVisibility(View.VISIBLE);
+            Log.i(TAG, "show: " + menuContainer.getTranslationY() + "  " + menuContainer.getTop());
+            ObjectAnimator.ofFloat(menuContainer,
+                    "translationY",
+                    menuContainer.getMeasuredHeight(),
+                    0
+            ).setDuration(150).start();
         }
     };
     private boolean mVisible;
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,10 +124,12 @@ public class FullscreenActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_fullscreen);
         displayMetrics = getResources().getDisplayMetrics();
-        mVisible = true;
+        HEIGHT_IMAGE_INFO_DEFAULT = (int)(displayMetrics.heightPixels * 0.1f);
+        mVisible = false;
         simpleDraweeView = (SimpleDraweeView) findViewById(R.id.fullscreen_content);
         imageInfoTv = (TextView) findViewById(R.id.image_info);
         menuContainer = findViewById(R.id.menu_container);
+        btnContainer = findViewById(R.id.fullscreen_content_controls);
         // Set up the user interaction to manually show or hide the system UI.
         simpleDraweeView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,15 +137,14 @@ public class FullscreenActivity extends AppCompatActivity {
                 toggle();
             }
         });
-
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-//        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        simpleDraweeView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        mVisible = true;
         requestQueue = Volley.newRequestQueue(this);
         Intent intent = getIntent();
         ImageData data = intent.getParcelableExtra(DATA_KEY);
         if (data != null) {
+            imageData = data;
             String filepath = data.getFilePath();
             BitmapFactory.Options opts = new BitmapFactory.Options();
             opts.inJustDecodeBounds = true;
@@ -173,16 +174,6 @@ public class FullscreenActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(100);
-    }
-
     private void toggle() {
         if (mVisible) {
             hide();
@@ -197,33 +188,18 @@ public class FullscreenActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        menuContainer.setVisibility(View.GONE);
         mVisible = false;
-
-        // Schedule a runnable to remove the status and navigation bar after a delay
         mHideHandler.removeCallbacks(mShowPart2Runnable);
         mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
     }
 
     @SuppressLint("InlinedApi")
     private void show() {
-        // Show the system bar
-        menuContainer.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        simpleDraweeView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         mVisible = true;
-
-        // Schedule a runnable to display UI elements after a delay
         mHideHandler.removeCallbacks(mHidePart2Runnable);
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
-    }
-
-    /**
-     * Schedules a call to hide() in [delay] milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
     private void tryGetNearByInfo(
@@ -240,27 +216,64 @@ public class FullscreenActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         if (!TextUtils.isEmpty(response)) {
                             Gson gson = new Gson();
-                            NearByResponse nearByResponse = (NearByResponse) gson.fromJson(response, responseType);
+                            NearByResponse nearByResponse = gson.fromJson(response, responseType);
                             if (nearByResponse != null) {
-                                NearByInfoBean data = nearByResponse.getData();
-                                imageInfoTv.setText(data.getPos());
-                                imageInfoTv.post(new Runnable() {
+                                nearByInfo = nearByResponse.getData();
+                                mHideHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        imageInfoTv.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                                        ValueAnimator animator = ValueAnimator.ofInt(0, HEIGHT_IMAGE_INFO_DEFAULT);
+                                        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                            @Override
+                                            public void onAnimationUpdate(ValueAnimator animation) {
+                                                ViewGroup.LayoutParams layoutParams = imageInfoTv.getLayoutParams();
+                                                if (layoutParams != null) {
+                                                    layoutParams.height = (int)animation.getAnimatedValue();
+                                                    imageInfoTv.requestLayout();
+                                                }
+                                            }
+                                        });
+                                        animator.addListener(new Animator.AnimatorListener() {
+                                            @Override
+                                            public void onAnimationStart(Animator animation) {
+                                                imageInfoTv.setText(nearByInfo.getDesc());
+                                            }
+
+                                            @Override
+                                            public void onAnimationEnd(Animator animation) {
+
+                                            }
+
+                                            @Override
+                                            public void onAnimationCancel(Animator animation) {
+
+                                            }
+
+                                            @Override
+                                            public void onAnimationRepeat(Animator animation) {
+
+                                            }
+                                        });
+                                        animator.setInterpolator(new LinearInterpolator());
+                                        animator.setDuration(300).start();
                                     }
                                 });
-                            }
 
+                            }
                         }
                     }
-
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
                     }
+        });
+        imageInfoTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleMenu();
+            }
         });
         requestQueue.add(stringRequest);
         requestQueue.start();
@@ -273,5 +286,114 @@ public class FullscreenActivity extends AppCompatActivity {
         public NearByInfoBean getData() {
             return data;
         }
+    }
+
+    private int savedMenuHeight = 0;
+    private int savedHeightMeasured = 0;
+    private boolean menuExpande = false;
+    public void toggleMenu() {
+        if (menuExpande) {
+            performHideAnimator(imageInfoTv);
+            menuExpande = false;
+        } else {
+            performShowAnimator(imageInfoTv);
+            menuExpande = true;
+        }
+    }
+    private void performShowAnimator(View view) {
+        final View targetView = view;
+        final int height = savedMenuHeight = menuContainer.getTop();
+        final int initHeight = savedHeightMeasured = view.getMeasuredHeight();
+        ValueAnimator animator = ValueAnimator.ofInt(0, 100);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float fraction = animation.getAnimatedFraction();
+                ViewGroup.LayoutParams layoutParams = targetView.getLayoutParams();
+                if (targetView != null) {
+                    layoutParams.height = initHeight + (int)(height * fraction);
+                    targetView.requestLayout();
+                }
+            }
+        });
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                imageInfoTv.setText(nearByInfo.getStringInfo());
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.setDuration(400).start();
+    }
+
+    private void performHideAnimator(View view) {
+        final View targetView = view;
+        final int initHeight = view.getMeasuredHeight();
+        ValueAnimator animator = ValueAnimator.ofInt(initHeight, savedHeightMeasured);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                ViewGroup.LayoutParams layoutParams = targetView.getLayoutParams();
+                if (layoutParams != null) {
+                    layoutParams.height = (int)animation.getAnimatedValue();
+                    targetView.requestLayout();
+                }
+            }
+        });
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                imageInfoTv.setText(nearByInfo.getDesc());
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animator.setInterpolator(new LinearInterpolator());
+        animator.setDuration(300).start();
+    }
+
+    public void performAnimation(View view, int fromHeight, int toHeight) {
+        final View targetView = view;
+        ValueAnimator animator = ValueAnimator.ofInt(fromHeight, toHeight);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                ViewGroup.LayoutParams layoutParams = targetView.getLayoutParams();
+                if (layoutParams != null) {
+                    layoutParams.height = (int)animation.getAnimatedValue();
+                    targetView.requestLayout();
+                }
+            }
+        });
+        animator.setInterpolator(new LinearInterpolator());
+        animator.setDuration(600).start();
     }
 }

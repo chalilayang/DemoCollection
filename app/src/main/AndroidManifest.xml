@@ -129,6 +129,12 @@
             android:label="@string/title_activity_flow"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".Fullscreen2Activity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen2"
+            android:theme="@style/FullscreenTheme">
+        </activity>
     </application>
 
 </manifest>

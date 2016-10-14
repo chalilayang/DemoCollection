@@ -144,5 +144,5 @@
     <color name="indicator_4">#FDBC7D</color>
 
     <color name="black_overlay">#66000000</color>
-    <color name="header_normal_overlay">#66e74c3c</color>
+    <color name="header_normal_overlay">#e74c3c</color>
 </resources>

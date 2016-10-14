@@ -65,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_below="@+id/fullscreen_content_controls"
+                android:lineSpacingExtra="10dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/general_small_text_size"/>
         </RelativeLayout>
