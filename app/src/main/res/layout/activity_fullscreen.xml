@@ -53,21 +53,40 @@
                     android:layout_weight="1"
                     android:src="@android:drawable/ic_menu_add"/>
                 <ImageButton
-                    android:id="@+id/share_button"
+                    android:id="@+id/location_button"
                     style="?metaButtonBarButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:src="@android:drawable/ic_menu_mylocation"/>
             </LinearLayout>
-            <TextView
-                android:id="@+id/image_info"
+            <ScrollView
+                android:id="@+id/image_info_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_below="@+id/fullscreen_content_controls"
-                android:lineSpacingExtra="10dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/general_small_text_size"/>
+                android:clickable="true"
+                android:fadeScrollbars="true"
+                android:layout_below="@+id/fullscreen_content_controls">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/image_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/general_small_text_size"/>
+                    <com.baidu.mapapi.map.MapView
+                        android:id="@+id/map"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"/>
+                </LinearLayout>
+
+            </ScrollView>
+
         </RelativeLayout>
 
     </FrameLayout>

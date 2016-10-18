@@ -22,6 +22,7 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -73,7 +74,7 @@ public class FlowActivity extends AppCompatActivity
                     mSimpleRecyclerAdapter.clearDataList();
                     mSimpleRecyclerAdapter.addDataList(mTmpDataList);
                     Toast.makeText(FlowActivity.this,
-                            "图片获取成功" + mTmpDataList.size(),
+                            "找到" + mTmpDataList.size() + "张照片",
                             Toast.LENGTH_SHORT
                     ).show();
                     break;
@@ -155,9 +156,6 @@ public class FlowActivity extends AppCompatActivity
         mSimpleRecyclerAdapter.setOnItemClickListener(new SimpleRecyclerCardAdapter.onItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                if (lastSelectionFloating == position) {
-                    return;
-                }
 //                lastSelectionFloating = position;
                 Toast.makeText(FlowActivity.this,
                         "pos " + position + " "+ view.getTop() + " "+view.getLeft(),
@@ -241,7 +239,15 @@ public class FlowActivity extends AppCompatActivity
                 long time = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN));
                 String des = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DESCRIPTION));
                 String latitude = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.LATITUDE));
+                if (!TextUtils.isEmpty(latitude)) {
+                    double dd = Double.parseDouble(latitude)+0.0008;// + 0.0075;
+                    latitude = String.valueOf(dd);
+                }
                 String longitude = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.LONGITUDE));
+                if (!TextUtils.isEmpty(longitude)) {
+                    double dd = Double.parseDouble(longitude)+0.006;// + 0.013;
+                    longitude = String.valueOf(dd);
+                }
                 String bucket = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
                 ImageData data = new ImageData(path, filename, fileId, time);
                 data.setBucketName(bucket);

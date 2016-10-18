@@ -461,6 +461,7 @@ limitations under the License.
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="title_activity_maptest">地图测试</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_login">Sign in</string>

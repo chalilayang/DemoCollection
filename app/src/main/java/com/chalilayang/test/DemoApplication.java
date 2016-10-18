@@ -2,6 +2,7 @@ package com.chalilayang.test;
 
 import android.support.multidex.MultiDexApplication;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
@@ -12,5 +13,6 @@ public class DemoApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         Fresco.initialize(this);
+        SDKInitializer.initialize(getApplicationContext());
     }
 }

@@ -15,4 +15,11 @@ public class URLConstants {
         );
         return url.toString();
     }
+
+    public static String getBaiduMapUri(String longitude, String latitude) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("intent://map/geocoder?location=").append(latitude).append(",").append(longitude)
+                .append("&coord_type=gcj02&src=thirdapp.rgeo.yourCompanyName.yourAppName#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end");
+        return sb.toString();
+    }
 }

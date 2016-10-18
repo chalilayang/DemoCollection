@@ -99,7 +99,7 @@ public class MainActivity extends Activity implements ActivitiesAdapter.onItemCl
         mList.add(new ActivitiesAdapter.Data(R.drawable.behance, getString(R.string.title_activity_scrolling)));
         mList.add(new ActivitiesAdapter.Data(R.drawable.deviantart, getString(R.string.title_activity_tab)));
         mList.add(new ActivitiesAdapter.Data(R.drawable.googleplus, getString(R.string.title_activity_navigation_drawer)));
-        mList.add(new ActivitiesAdapter.Data(R.drawable.youtube, getString(R.string.title_activity_fullscreen)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.youtube, getString(R.string.title_activity_maptest)));
         mList.add(new ActivitiesAdapter.Data(R.drawable.facebook, getString(R.string.title_activity_login)));
         mList.add(new ActivitiesAdapter.Data(R.drawable.dribble, getString(R.string.title_activity_flow)));
         return mList;
@@ -171,7 +171,7 @@ public class MainActivity extends Activity implements ActivitiesAdapter.onItemCl
                 intent = new Intent(this, NavigationDrawerActivity.class);
                 break;
             case 12:
-                intent = new Intent(this, FullscreenActivity.class);
+                intent = new Intent(this, Fullscreen2Activity.class);
                 break;
             case 13:
                 intent = new Intent(this, LoginActivity.class);
