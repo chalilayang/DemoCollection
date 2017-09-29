@@ -102,6 +102,7 @@ public class MainActivity extends Activity implements ActivitiesAdapter.onItemCl
         mList.add(new ActivitiesAdapter.Data(R.drawable.youtube, getString(R.string.title_activity_maptest)));
         mList.add(new ActivitiesAdapter.Data(R.drawable.facebook, getString(R.string.title_activity_login)));
         mList.add(new ActivitiesAdapter.Data(R.drawable.dribble, getString(R.string.title_activity_flow)));
+        mList.add(new ActivitiesAdapter.Data(R.drawable.dropbox, getString(R.string.title_activity_glpartical)));
         return mList;
     }
 
@@ -178,6 +179,9 @@ public class MainActivity extends Activity implements ActivitiesAdapter.onItemCl
                 break;
             case 14:
                 intent = new Intent(this, FlowActivity.class);
+                break;
+            case 15:
+                intent = new Intent(this, GLParticalActivity.class);
                 break;
             default:
                 break;

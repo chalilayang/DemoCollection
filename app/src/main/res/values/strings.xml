@@ -348,7 +348,7 @@
 
     <string name="action_about">About</string>
 
-        <string name="license">
+    <string name="license">
         Copyright 2015 chenupt
 \n\n
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -479,6 +479,6 @@ limitations under the License.
         completions."
     </string>
     <string name="title_activity_flow">流年</string>
-
+    <string name="title_activity_glpartical">GLParticalActivity</string>
     <string name="title_activity_fullscreen2">Fullscreen2Activity</string>
 </resources>
